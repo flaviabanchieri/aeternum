@@ -35,7 +35,7 @@ WORKDIR $APP
 RUN flutter clean
 RUN flutter pub add collection:^1.18.0
 RUN flutter pub get
-RUN flutter build web
+RUN flutter build web --release --web-renderer html
 
 # use nginx to deploy
 FROM nginx:1.25.2-alpine
