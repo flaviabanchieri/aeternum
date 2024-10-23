@@ -16,6 +16,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import 'leads_gestor_model.dart';
 export 'leads_gestor_model.dart';
 
@@ -205,121 +206,9 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                               dropDownProdutosProdutoRowList
                                                   .map((e) => e.nome)
                                                   .toList(),
-                                          onChanged: (val) async {
-                                            safeSetState(() => _model
-                                                .dropDownProdutosValue = val);
-                                            _model.apiResultLeadEntrarEmContatoFiltro =
-                                                await FiltraLeadsCall.call(
-                                              status: 1,
-                                              produto:
-                                                  _model.dropDownProdutosValue,
-                                              origem:
-                                                  _model.dropDownOrigemValue,
-                                              nomeLead:
-                                                  _model.dropDownLeadValue,
-                                              dataCriacaoFinal:
-                                                  valueOrDefault<String>(
-                                                _model.dataFinal?.toString(),
-                                                '3333-03-03 00:00:00',
-                                              ),
-                                              dataCriacaoInicial:
-                                                  valueOrDefault<String>(
-                                                _model.dataIncial?.toString(),
-                                                '1333-03-03 00:00:00',
-                                              ),
-                                            );
-
-                                            _model.apiResultLeadEmAndamentoFiltro =
-                                                await FiltraLeadsCall.call(
-                                              status: 2,
-                                              produto:
-                                                  _model.dropDownProdutosValue,
-                                              origem:
-                                                  _model.dropDownOrigemValue,
-                                              nomeLead:
-                                                  _model.dropDownLeadValue,
-                                              dataCriacaoInicial:
-                                                  valueOrDefault<String>(
-                                                _model.dataIncial?.toString(),
-                                                '1333-03-03 00:00:00',
-                                              ),
-                                              dataCriacaoFinal:
-                                                  valueOrDefault<String>(
-                                                _model.dataFinal?.toString(),
-                                                '3333-03-03 00:00:00',
-                                              ),
-                                            );
-
-                                            _model.apiResultLeadAguardandoConfirmacaoFiltro =
-                                                await FiltraLeadsCall.call(
-                                              status: 3,
-                                              produto:
-                                                  _model.dropDownProdutosValue,
-                                              origem:
-                                                  _model.dropDownOrigemValue,
-                                              nomeLead:
-                                                  _model.dropDownLeadValue,
-                                              dataCriacaoInicial:
-                                                  valueOrDefault<String>(
-                                                _model.dataIncial?.toString(),
-                                                '1333-03-03 00:00:00',
-                                              ),
-                                              dataCriacaoFinal:
-                                                  valueOrDefault<String>(
-                                                _model.dataFinal?.toString(),
-                                                '3333-03-03 00:00:00',
-                                              ),
-                                            );
-
-                                            _model.apiResultLeadConcluidoFiltro =
-                                                await FiltraLeadsCall.call(
-                                              status: 4,
-                                              produto:
-                                                  _model.dropDownProdutosValue,
-                                              origem:
-                                                  _model.dropDownOrigemValue,
-                                              nomeLead:
-                                                  _model.dropDownLeadValue,
-                                              dataCriacaoInicial:
-                                                  valueOrDefault<String>(
-                                                _model.dataIncial?.toString(),
-                                                '1333-03-03 00:00:00',
-                                              ),
-                                              dataCriacaoFinal:
-                                                  valueOrDefault<String>(
-                                                _model.dataFinal?.toString(),
-                                                '3333-03-03 00:00:00',
-                                              ),
-                                            );
-
-                                            _model.listaLeadEntrarEmContato =
-                                                (_model.apiResultLeadEntrarEmContatoFiltro
-                                                            ?.jsonBody ??
-                                                        '')
-                                                    .toList()
-                                                    .cast<dynamic>();
-                                            _model.listaLeadEmProgresso =
-                                                (_model.apiResultLeadEmAndamentoFiltro
-                                                            ?.jsonBody ??
-                                                        '')
-                                                    .toList()
-                                                    .cast<dynamic>();
-                                            _model.listaLeadAguardandoAprovacao =
-                                                (_model.apiResultLeadAguardandoConfirmacaoFiltro
-                                                            ?.jsonBody ??
-                                                        '')
-                                                    .toList()
-                                                    .cast<dynamic>();
-                                            _model.listaLeadConcluido =
-                                                (_model.apiResultLeadConcluidoFiltro
-                                                            ?.jsonBody ??
-                                                        '')
-                                                    .toList()
-                                                    .cast<dynamic>();
-                                            safeSetState(() {});
-
-                                            safeSetState(() {});
-                                          },
+                                          onChanged: (val) => safeSetState(() =>
+                                              _model.dropDownProdutosValue =
+                                                  val),
                                           width: 300.0,
                                           height: 50.0,
                                           searchHintTextStyle:
@@ -421,121 +310,8 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                                   .map((e) => e.traducao)
                                                   .withoutNulls
                                                   .toList(),
-                                          onChanged: (val) async {
-                                            safeSetState(() => _model
-                                                .dropDownOrigemValue = val);
-                                            _model.apiResultLeadEntrarEmContatoFiltroOrigem =
-                                                await FiltraLeadsCall.call(
-                                              status: 1,
-                                              produto:
-                                                  _model.dropDownProdutosValue,
-                                              origem:
-                                                  _model.dropDownOrigemValue,
-                                              nomeLead:
-                                                  _model.dropDownLeadValue,
-                                              dataCriacaoInicial:
-                                                  valueOrDefault<String>(
-                                                _model.dataIncial?.toString(),
-                                                '1333-03-03 00:00:00',
-                                              ),
-                                              dataCriacaoFinal:
-                                                  valueOrDefault<String>(
-                                                _model.dataFinal?.toString(),
-                                                '3333-03-03 00:00:00',
-                                              ),
-                                            );
-
-                                            _model.apiResultLeadEmAndamentoFiltroOrigem =
-                                                await FiltraLeadsCall.call(
-                                              status: 2,
-                                              produto:
-                                                  _model.dropDownProdutosValue,
-                                              origem:
-                                                  _model.dropDownOrigemValue,
-                                              nomeLead:
-                                                  _model.dropDownLeadValue,
-                                              dataCriacaoInicial:
-                                                  valueOrDefault<String>(
-                                                _model.dataIncial?.toString(),
-                                                '1333-03-03 00:00:00',
-                                              ),
-                                              dataCriacaoFinal:
-                                                  valueOrDefault<String>(
-                                                _model.dataFinal?.toString(),
-                                                '3333-03-03 00:00:00',
-                                              ),
-                                            );
-
-                                            _model.apiResultLeadAguardandoConfirmacaoFiltroOrigem =
-                                                await FiltraLeadsCall.call(
-                                              status: 3,
-                                              produto:
-                                                  _model.dropDownProdutosValue,
-                                              origem:
-                                                  _model.dropDownOrigemValue,
-                                              nomeLead:
-                                                  _model.dropDownLeadValue,
-                                              dataCriacaoInicial:
-                                                  valueOrDefault<String>(
-                                                _model.dataIncial?.toString(),
-                                                '1333-03-03 00:00:00',
-                                              ),
-                                              dataCriacaoFinal:
-                                                  valueOrDefault<String>(
-                                                _model.dataFinal?.toString(),
-                                                '3333-03-03 00:00:00',
-                                              ),
-                                            );
-
-                                            _model.apiResultLeadConcluidoFiltroOrigem =
-                                                await FiltraLeadsCall.call(
-                                              status: 4,
-                                              produto:
-                                                  _model.dropDownProdutosValue,
-                                              origem:
-                                                  _model.dropDownOrigemValue,
-                                              nomeLead:
-                                                  _model.dropDownLeadValue,
-                                              dataCriacaoInicial:
-                                                  valueOrDefault<String>(
-                                                _model.dataIncial?.toString(),
-                                                '1333-03-03 00:00:00',
-                                              ),
-                                              dataCriacaoFinal:
-                                                  valueOrDefault<String>(
-                                                _model.dataFinal?.toString(),
-                                                '3333-03-03 00:00:00',
-                                              ),
-                                            );
-
-                                            _model.listaLeadEntrarEmContato =
-                                                (_model.apiResultLeadEntrarEmContatoFiltroOrigem
-                                                            ?.jsonBody ??
-                                                        '')
-                                                    .toList()
-                                                    .cast<dynamic>();
-                                            _model.listaLeadEmProgresso =
-                                                (_model.apiResultLeadEmAndamentoFiltroOrigem
-                                                            ?.jsonBody ??
-                                                        '')
-                                                    .toList()
-                                                    .cast<dynamic>();
-                                            _model.listaLeadAguardandoAprovacao =
-                                                (_model.apiResultLeadAguardandoConfirmacaoFiltroOrigem
-                                                            ?.jsonBody ??
-                                                        '')
-                                                    .toList()
-                                                    .cast<dynamic>();
-                                            _model.listaLeadConcluido =
-                                                (_model.apiResultLeadConcluidoFiltroOrigem
-                                                            ?.jsonBody ??
-                                                        '')
-                                                    .toList()
-                                                    .cast<dynamic>();
-                                            safeSetState(() {});
-
-                                            safeSetState(() {});
-                                          },
+                                          onChanged: (val) => safeSetState(() =>
+                                              _model.dropDownOrigemValue = val),
                                           width: 300.0,
                                           height: 50.0,
                                           textStyle:
@@ -584,109 +360,8 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                         _model.dropDownLeadValue ??= '',
                                       ),
                                       options: _model.listaNomeLead,
-                                      onChanged: (val) async {
-                                        safeSetState(() =>
-                                            _model.dropDownLeadValue = val);
-                                        _model.apiResultLeadEntrarEmContatoFiltroNome =
-                                            await FiltraLeadsCall.call(
-                                          status: 1,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadEmAndamentoFiltroNome =
-                                            await FiltraLeadsCall.call(
-                                          status: 2,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadAguardandoConfirmacaoFiltroNome =
-                                            await FiltraLeadsCall.call(
-                                          status: 3,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadConcluidoFiltroNome =
-                                            await FiltraLeadsCall.call(
-                                          status: 4,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.listaLeadEntrarEmContato =
-                                            (_model.apiResultLeadEntrarEmContatoFiltroNome
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadEmProgresso =
-                                            (_model.apiResultLeadEmAndamentoFiltroNome
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadAguardandoAprovacao =
-                                            (_model.apiResultLeadAguardandoConfirmacaoFiltroNome
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadConcluido =
-                                            (_model.apiResultLeadConcluidoFiltroNome
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        safeSetState(() {});
-
-                                        safeSetState(() {});
-                                      },
+                                      onChanged: (val) => safeSetState(
+                                          () => _model.dropDownLeadValue = val),
                                       width: 300.0,
                                       height: 50.0,
                                       searchHintTextStyle:
@@ -761,105 +436,6 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                           });
                                         }
                                         _model.dataIncial = _model.datePicked1;
-                                        safeSetState(() {});
-                                        _model.apiResultLeadEntrarEmContatoFiltro8 =
-                                            await FiltraLeadsCall.call(
-                                          status: 1,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadEmAndamentoFiltro8 =
-                                            await FiltraLeadsCall.call(
-                                          status: 2,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadAguardandoConfirmacaoFiltro8 =
-                                            await FiltraLeadsCall.call(
-                                          status: 3,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadConcluidoFiltro8 =
-                                            await FiltraLeadsCall.call(
-                                          status: 4,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.listaLeadEntrarEmContato =
-                                            (_model.apiResultLeadEntrarEmContatoFiltro8
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadEmProgresso =
-                                            (_model.apiResultLeadEmAndamentoFiltro8
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadAguardandoAprovacao =
-                                            (_model.apiResultLeadAguardandoConfirmacaoFiltro8
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadConcluido =
-                                            (_model.apiResultLeadConcluidoFiltro8
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        safeSetState(() {});
-
                                         safeSetState(() {});
                                       },
                                       child: Container(
@@ -936,105 +512,6 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                         }
                                         _model.dataFinal = _model.datePicked2;
                                         safeSetState(() {});
-                                        _model.apiResultLeadEntrarEmContatoFiltro87 =
-                                            await FiltraLeadsCall.call(
-                                          status: 1,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadEmAndamentoFiltro87 =
-                                            await FiltraLeadsCall.call(
-                                          status: 2,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadAguardandoConfirmacaoFiltro87 =
-                                            await FiltraLeadsCall.call(
-                                          status: 3,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.apiResultLeadConcluidoFiltro87 =
-                                            await FiltraLeadsCall.call(
-                                          status: 4,
-                                          produto: _model.dropDownProdutosValue,
-                                          origem: _model.dropDownOrigemValue,
-                                          nomeLead: _model.dropDownLeadValue,
-                                          dataCriacaoInicial:
-                                              valueOrDefault<String>(
-                                            _model.dataIncial?.toString(),
-                                            '1333-03-03 00:00:00',
-                                          ),
-                                          dataCriacaoFinal:
-                                              valueOrDefault<String>(
-                                            _model.dataFinal?.toString(),
-                                            '3333-03-03 00:00:00',
-                                          ),
-                                        );
-
-                                        _model.listaLeadEntrarEmContato =
-                                            (_model.apiResultLeadEntrarEmContatoFiltro87
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadEmProgresso =
-                                            (_model.apiResultLeadEmAndamentoFiltro87
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadAguardandoAprovacao =
-                                            (_model.apiResultLeadAguardandoConfirmacaoFiltro87
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        _model.listaLeadConcluido =
-                                            (_model.apiResultLeadConcluidoFiltro87
-                                                        ?.jsonBody ??
-                                                    '')
-                                                .toList()
-                                                .cast<dynamic>();
-                                        safeSetState(() {});
-
-                                        safeSetState(() {});
                                       },
                                       child: Container(
                                         height: 50.0,
@@ -1086,6 +563,139 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                       8.0, 0.0, 8.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
+                                      _model.carregando = true;
+                                      safeSetState(() {});
+                                      _model.apiResultLeadEntrarEmContatoFiltroCopy =
+                                          await FiltraLeadsCall.call(
+                                        status: 1,
+                                        produto: _model.dropDownProdutosValue,
+                                        origem: _model.dropDownOrigemValue,
+                                        nomeLead: _model.dropDownLeadValue,
+                                        dataCriacaoFinal:
+                                            valueOrDefault<String>(
+                                          _model.dataFinal?.toString(),
+                                          '3333-03-03 00:00:00',
+                                        ),
+                                        dataCriacaoInicial:
+                                            valueOrDefault<String>(
+                                          _model.dataIncial?.toString(),
+                                          '1333-03-03 00:00:00',
+                                        ),
+                                      );
+
+                                      _model.apiResultLeadEmAndamentoFiltroCopy =
+                                          await FiltraLeadsCall.call(
+                                        status: 2,
+                                        produto: _model.dropDownProdutosValue,
+                                        origem: _model.dropDownOrigemValue,
+                                        nomeLead: _model.dropDownLeadValue,
+                                        dataCriacaoInicial:
+                                            valueOrDefault<String>(
+                                          _model.dataIncial?.toString(),
+                                          '1333-03-03 00:00:00',
+                                        ),
+                                        dataCriacaoFinal:
+                                            valueOrDefault<String>(
+                                          _model.dataFinal?.toString(),
+                                          '3333-03-03 00:00:00',
+                                        ),
+                                      );
+
+                                      _model.apiResultLeadAguardandoConfirmacaoFiltroCopy =
+                                          await FiltraLeadsCall.call(
+                                        status: 3,
+                                        produto: _model.dropDownProdutosValue,
+                                        origem: _model.dropDownOrigemValue,
+                                        nomeLead: _model.dropDownLeadValue,
+                                        dataCriacaoInicial:
+                                            valueOrDefault<String>(
+                                          _model.dataIncial?.toString(),
+                                          '1333-03-03 00:00:00',
+                                        ),
+                                        dataCriacaoFinal:
+                                            valueOrDefault<String>(
+                                          _model.dataFinal?.toString(),
+                                          '3333-03-03 00:00:00',
+                                        ),
+                                      );
+
+                                      _model.apiResultLeadConcluidoFiltroCopy =
+                                          await FiltraLeadsCall.call(
+                                        status: 4,
+                                        produto: _model.dropDownProdutosValue,
+                                        origem: _model.dropDownOrigemValue,
+                                        nomeLead: _model.dropDownLeadValue,
+                                        dataCriacaoInicial:
+                                            valueOrDefault<String>(
+                                          _model.dataIncial?.toString(),
+                                          '1333-03-03 00:00:00',
+                                        ),
+                                        dataCriacaoFinal:
+                                            valueOrDefault<String>(
+                                          _model.dataFinal?.toString(),
+                                          '3333-03-03 00:00:00',
+                                        ),
+                                      );
+
+                                      _model.listaLeadEntrarEmContato =
+                                          (_model.apiResultLeadEntrarEmContatoFiltroCopy
+                                                      ?.jsonBody ??
+                                                  '')
+                                              .toList()
+                                              .cast<dynamic>();
+                                      _model.listaLeadEmProgresso =
+                                          (_model.apiResultLeadEmAndamentoFiltroCopy
+                                                      ?.jsonBody ??
+                                                  '')
+                                              .toList()
+                                              .cast<dynamic>();
+                                      _model.listaLeadAguardandoAprovacao =
+                                          (_model.apiResultLeadAguardandoConfirmacaoFiltroCopy
+                                                      ?.jsonBody ??
+                                                  '')
+                                              .toList()
+                                              .cast<dynamic>();
+                                      _model.listaLeadConcluido =
+                                          (_model.apiResultLeadConcluidoFiltroCopy
+                                                      ?.jsonBody ??
+                                                  '')
+                                              .toList()
+                                              .cast<dynamic>();
+                                      _model.carregando = false;
+                                      safeSetState(() {});
+
+                                      safeSetState(() {});
+                                    },
+                                    text: 'Filtrar',
+                                    options: FFButtonOptions(
+                                      height: 48.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 0.0, 10.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: Color(0xFF804DFC),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Manrope',
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 8.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
                                       safeSetState(() {
                                         _model.dropDownProdutosValueController
                                             ?.reset();
@@ -1096,6 +706,107 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                       });
                                       _model.dataIncial = null;
                                       _model.dataFinal = null;
+                                      _model.carregando = true;
+                                      safeSetState(() {});
+                                      _model.apiResultLeadEntrarEmContatoFiltro1 =
+                                          await FiltraLeadsCall.call(
+                                        status: 1,
+                                        produto: _model.dropDownProdutosValue,
+                                        origem: _model.dropDownOrigemValue,
+                                        nomeLead: _model.dropDownLeadValue,
+                                        dataCriacaoFinal:
+                                            valueOrDefault<String>(
+                                          _model.dataFinal?.toString(),
+                                          '3333-03-03 00:00:00',
+                                        ),
+                                        dataCriacaoInicial:
+                                            valueOrDefault<String>(
+                                          _model.dataIncial?.toString(),
+                                          '1333-03-03 00:00:00',
+                                        ),
+                                      );
+
+                                      _model.apiResultLeadEmAndamentoFiltro1 =
+                                          await FiltraLeadsCall.call(
+                                        status: 2,
+                                        produto: _model.dropDownProdutosValue,
+                                        origem: _model.dropDownOrigemValue,
+                                        nomeLead: _model.dropDownLeadValue,
+                                        dataCriacaoInicial:
+                                            valueOrDefault<String>(
+                                          _model.dataIncial?.toString(),
+                                          '1333-03-03 00:00:00',
+                                        ),
+                                        dataCriacaoFinal:
+                                            valueOrDefault<String>(
+                                          _model.dataFinal?.toString(),
+                                          '3333-03-03 00:00:00',
+                                        ),
+                                      );
+
+                                      _model.apiResultLeadAguardandoConfirmacaoFiltro1 =
+                                          await FiltraLeadsCall.call(
+                                        status: 3,
+                                        produto: _model.dropDownProdutosValue,
+                                        origem: _model.dropDownOrigemValue,
+                                        nomeLead: _model.dropDownLeadValue,
+                                        dataCriacaoInicial:
+                                            valueOrDefault<String>(
+                                          _model.dataIncial?.toString(),
+                                          '1333-03-03 00:00:00',
+                                        ),
+                                        dataCriacaoFinal:
+                                            valueOrDefault<String>(
+                                          _model.dataFinal?.toString(),
+                                          '3333-03-03 00:00:00',
+                                        ),
+                                      );
+
+                                      _model.apiResultLeadConcluidoFiltro1 =
+                                          await FiltraLeadsCall.call(
+                                        status: 4,
+                                        produto: _model.dropDownProdutosValue,
+                                        origem: _model.dropDownOrigemValue,
+                                        nomeLead: _model.dropDownLeadValue,
+                                        dataCriacaoInicial:
+                                            valueOrDefault<String>(
+                                          _model.dataIncial?.toString(),
+                                          '1333-03-03 00:00:00',
+                                        ),
+                                        dataCriacaoFinal:
+                                            valueOrDefault<String>(
+                                          _model.dataFinal?.toString(),
+                                          '3333-03-03 00:00:00',
+                                        ),
+                                      );
+
+                                      _model.listaLeadEntrarEmContato =
+                                          (_model.apiResultLeadEntrarEmContatoFiltro1
+                                                      ?.jsonBody ??
+                                                  '')
+                                              .toList()
+                                              .cast<dynamic>();
+                                      _model.listaLeadEmProgresso =
+                                          (_model.apiResultLeadEmAndamentoFiltro1
+                                                      ?.jsonBody ??
+                                                  '')
+                                              .toList()
+                                              .cast<dynamic>();
+                                      _model.listaLeadAguardandoAprovacao =
+                                          (_model.apiResultLeadAguardandoConfirmacaoFiltro1
+                                                      ?.jsonBody ??
+                                                  '')
+                                              .toList()
+                                              .cast<dynamic>();
+                                      _model.listaLeadConcluido = (_model
+                                                  .apiResultLeadConcluidoFiltro1
+                                                  ?.jsonBody ??
+                                              '')
+                                          .toList()
+                                          .cast<dynamic>();
+                                      _model.carregando = false;
+                                      safeSetState(() {});
+
                                       safeSetState(() {});
                                     },
                                     text: 'Limpar Filtros',
@@ -1679,14 +1390,14 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                                                                 queryParameters: {
                                                                                   'lead': serializeParam(
                                                                                     getJsonField(
-                                                                                      (_model.apiResultLeadEmAndamentoFiltro?.jsonBody ?? ''),
+                                                                                      listEmProgressoItem,
                                                                                       r'''$.nome_lead''',
                                                                                     ).toString(),
                                                                                     ParamType.String,
                                                                                   ),
                                                                                   'id': serializeParam(
                                                                                     getJsonField(
-                                                                                      (_model.apiResultLeadEmAndamentoFiltro?.jsonBody ?? ''),
+                                                                                      listEmProgressoItem,
                                                                                       r'''$.id_lead''',
                                                                                     ),
                                                                                     ParamType.int,

@@ -146,54 +146,30 @@ class LeadsGestorModel extends FlutterFlowModel<LeadsGestorWidget> {
   // State field(s) for DropDownProdutos widget.
   String? dropDownProdutosValue;
   FormFieldController<String>? dropDownProdutosValueController;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownProdutos widget.
-  ApiCallResponse? apiResultLeadEntrarEmContatoFiltro;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownProdutos widget.
-  ApiCallResponse? apiResultLeadEmAndamentoFiltro;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownProdutos widget.
-  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltro;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownProdutos widget.
-  ApiCallResponse? apiResultLeadConcluidoFiltro;
   // State field(s) for DropDownOrigem widget.
   String? dropDownOrigemValue;
   FormFieldController<String>? dropDownOrigemValueController;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownOrigem widget.
-  ApiCallResponse? apiResultLeadEntrarEmContatoFiltroOrigem;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownOrigem widget.
-  ApiCallResponse? apiResultLeadEmAndamentoFiltroOrigem;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownOrigem widget.
-  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltroOrigem;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownOrigem widget.
-  ApiCallResponse? apiResultLeadConcluidoFiltroOrigem;
   // State field(s) for DropDownLead widget.
   String? dropDownLeadValue;
   FormFieldController<String>? dropDownLeadValueController;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownLead widget.
-  ApiCallResponse? apiResultLeadEntrarEmContatoFiltroNome;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownLead widget.
-  ApiCallResponse? apiResultLeadEmAndamentoFiltroNome;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownLead widget.
-  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltroNome;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in DropDownLead widget.
-  ApiCallResponse? apiResultLeadConcluidoFiltroNome;
   DateTime? datePicked1;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in Container widget.
-  ApiCallResponse? apiResultLeadEntrarEmContatoFiltro8;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in Container widget.
-  ApiCallResponse? apiResultLeadEmAndamentoFiltro8;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in Container widget.
-  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltro8;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in Container widget.
-  ApiCallResponse? apiResultLeadConcluidoFiltro8;
   DateTime? datePicked2;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in Container widget.
-  ApiCallResponse? apiResultLeadEntrarEmContatoFiltro87;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in Container widget.
-  ApiCallResponse? apiResultLeadEmAndamentoFiltro87;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in Container widget.
-  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltro87;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in Container widget.
-  ApiCallResponse? apiResultLeadConcluidoFiltro87;
+  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
+  ApiCallResponse? apiResultLeadEntrarEmContatoFiltroCopy;
+  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
+  ApiCallResponse? apiResultLeadEmAndamentoFiltroCopy;
+  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
+  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltroCopy;
+  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
+  ApiCallResponse? apiResultLeadConcluidoFiltroCopy;
+  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
+  ApiCallResponse? apiResultLeadEntrarEmContatoFiltro1;
+  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
+  ApiCallResponse? apiResultLeadEmAndamentoFiltro1;
+  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
+  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltro1;
+  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
+  ApiCallResponse? apiResultLeadConcluidoFiltro1;
 
   @override
   void initState(BuildContext context) {
