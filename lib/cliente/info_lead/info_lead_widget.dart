@@ -20,6 +20,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'info_lead_model.dart';
 export 'info_lead_model.dart';
 
@@ -51,6 +52,9 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget!.id == null) {
+        context.safePop();
+      }
       _model.dataInicial = functions.montarData(
           1, functions.mesAtual(), functions.anoAtual(), false);
       _model.dataFinal = functions.montarData(
@@ -223,8 +227,12 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                     valueOrDefault<
                                                                         String>(
                                                                       functions.imgUsuarioTexto(
-                                                                          widget!
-                                                                              .lead),
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                        widget!
+                                                                            .lead,
+                                                                        'Sem Lead',
+                                                                      )),
                                                                       'Sem Lead',
                                                                     ),
                                                                     textAlign:
@@ -261,7 +269,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                           String>(
                                                                         infoLeadViewLeadRow
                                                                             ?.nomeLead,
-                                                                        'Lead',
+                                                                        '-',
                                                                       ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -303,7 +311,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                             String>(
                                                                           infoLeadViewLeadRow
                                                                               ?.email,
-                                                                          'email',
+                                                                          '-',
                                                                         ),
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
@@ -349,7 +357,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                           valueOrDefault<
                                                                               String>(
                                                                             infoLeadViewLeadRow?.telefone,
-                                                                            'telefone',
+                                                                            '-',
                                                                           ),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
@@ -369,7 +377,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                     String>(
                                                                   infoLeadViewLeadRow
                                                                       ?.nomeProduto,
-                                                                  'Produto',
+                                                                  '-',
                                                                 ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
@@ -382,23 +390,56 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                     ),
                                                               ),
                                                               Text(
-                                                                'Status: ${() {
-                                                                  if (infoLeadViewLeadRow
-                                                                          ?.status ==
-                                                                      1) {
-                                                                    return 'Entrar em contato';
-                                                                  } else if (infoLeadViewLeadRow
-                                                                          ?.status ==
-                                                                      2) {
-                                                                    return 'Em progresso';
-                                                                  } else if (infoLeadViewLeadRow
-                                                                          ?.status ==
-                                                                      3) {
-                                                                    return 'Aguardando aprovação do Gestor';
-                                                                  } else {
-                                                                    return 'Concluído';
-                                                                  }
-                                                                }()}',
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  'Status: ${valueOrDefault<String>(
+                                                                    () {
+                                                                      if (infoLeadViewLeadRow
+                                                                              ?.status ==
+                                                                          1) {
+                                                                        return 'Entrar em contato';
+                                                                      } else if (infoLeadViewLeadRow
+                                                                              ?.status ==
+                                                                          2) {
+                                                                        return 'Em progresso';
+                                                                      } else if (infoLeadViewLeadRow
+                                                                              ?.status ==
+                                                                          3) {
+                                                                        return 'Aguardando aprovação do Gestor';
+                                                                      } else {
+                                                                        return 'Concluído';
+                                                                      }
+                                                                    }(),
+                                                                    'Sem status',
+                                                                  )}',
+                                                                  'Sem status',
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Manrope',
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
+                                                              Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  'Data de criação: ${valueOrDefault<String>(
+                                                                    dateTimeFormat(
+                                                                      "dd/MM/yyyy HH:mm",
+                                                                      infoLeadViewLeadRow
+                                                                          ?.createdAt,
+                                                                      locale: FFLocalizations.of(
+                                                                              context)
+                                                                          .languageCode,
+                                                                    ),
+                                                                    '-',
+                                                                  )}',
+                                                                  'Data de criação',
+                                                                ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -446,7 +487,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                             Text(
                                                                           valueOrDefault<
                                                                               String>(
-                                                                            'Orgiem: ${valueOrDefault<String>(
+                                                                            'Origem: ${valueOrDefault<String>(
                                                                               infoLeadViewLeadRow?.origem,
                                                                               'Status não definido',
                                                                             )}',
