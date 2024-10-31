@@ -3268,14 +3268,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                                                         ),
                                                                                                         'www.google.com',
                                                                                                       ));
-                                                                                                    } else if (GravacoesCall.base64(
-                                                                                                              (_model.apiResult218?.jsonBody ?? ''),
-                                                                                                            ) !=
-                                                                                                            null &&
-                                                                                                        GravacoesCall.base64(
-                                                                                                              (_model.apiResult218?.jsonBody ?? ''),
-                                                                                                            ) !=
-                                                                                                            '') {}
+                                                                                                    }
 
                                                                                                     safeSetState(() {});
                                                                                                   },

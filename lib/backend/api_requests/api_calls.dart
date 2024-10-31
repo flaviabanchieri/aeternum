@@ -753,6 +753,11 @@ class GravacoesCall {
       alwaysAllowBody: false,
     );
   }
+
+  static String? url(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.url_gravacao''',
+      ));
 }
 
 class GetUsuarioPontoListaCall {
