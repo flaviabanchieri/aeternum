@@ -392,27 +392,9 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                               Text(
                                                                 valueOrDefault<
                                                                     String>(
-                                                                  'Status: ${valueOrDefault<String>(
-                                                                    () {
-                                                                      if (infoLeadViewLeadRow
-                                                                              ?.status ==
-                                                                          1) {
-                                                                        return 'Entrar em contato';
-                                                                      } else if (infoLeadViewLeadRow
-                                                                              ?.status ==
-                                                                          2) {
-                                                                        return 'Em progresso';
-                                                                      } else if (infoLeadViewLeadRow
-                                                                              ?.status ==
-                                                                          3) {
-                                                                        return 'Aguardando aprovação do Gestor';
-                                                                      } else {
-                                                                        return 'Concluído';
-                                                                      }
-                                                                    }(),
-                                                                    'Sem status',
-                                                                  )}',
-                                                                  'Sem status',
+                                                                  infoLeadViewLeadRow
+                                                                      ?.nomeUsuario,
+                                                                  '-',
                                                                 ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
@@ -424,31 +406,72 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                           0.0,
                                                                     ),
                                                               ),
-                                                              Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  'Data de criação: ${valueOrDefault<String>(
-                                                                    dateTimeFormat(
-                                                                      "dd/MM/yyyy HH:mm",
-                                                                      infoLeadViewLeadRow
-                                                                          ?.createdAt,
-                                                                      locale: FFLocalizations.of(
-                                                                              context)
-                                                                          .languageCode,
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: [
+                                                                  Text(
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      'Status: ${valueOrDefault<String>(
+                                                                        () {
+                                                                          if (infoLeadViewLeadRow?.status ==
+                                                                              1) {
+                                                                            return 'Entrar em contato';
+                                                                          } else if (infoLeadViewLeadRow?.status ==
+                                                                              2) {
+                                                                            return 'Em progresso';
+                                                                          } else if (infoLeadViewLeadRow?.status ==
+                                                                              3) {
+                                                                            return 'Aguardando aprovação do Gestor';
+                                                                          } else {
+                                                                            return 'Concluído';
+                                                                          }
+                                                                        }(),
+                                                                        'Sem status',
+                                                                      )}',
+                                                                      'Sem status',
                                                                     ),
-                                                                    '-',
-                                                                  )}',
-                                                                  'Data de criação',
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Manrope',
-                                                                      letterSpacing:
-                                                                          0.0,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Manrope',
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                  ),
+                                                                  Text(
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      'Data de criação: ${valueOrDefault<String>(
+                                                                        dateTimeFormat(
+                                                                          "dd/MM/yyyy HH:mm",
+                                                                          infoLeadViewLeadRow
+                                                                              ?.createdAt,
+                                                                          locale:
+                                                                              FFLocalizations.of(context).languageCode,
+                                                                        ),
+                                                                        '-',
+                                                                      )}',
+                                                                      'Data de criação',
                                                                     ),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Manrope',
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                  ),
+                                                                ],
                                                               ),
                                                               Row(
                                                                 mainAxisSize:
@@ -3239,11 +3262,20 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                                                     );
 
                                                                                                     if ((_model.apiResult218?.succeeded ?? true)) {
-                                                                                                      await launchURL(getJsonField(
-                                                                                                        (_model.apiResult218?.jsonBody ?? ''),
-                                                                                                        r'''$.url_gravacao''',
-                                                                                                      ).toString());
-                                                                                                    }
+                                                                                                      await launchURL(valueOrDefault<String>(
+                                                                                                        GravacoesCall.url(
+                                                                                                          (_model.apiResult218?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        'www.google.com',
+                                                                                                      ));
+                                                                                                    } else if (GravacoesCall.base64(
+                                                                                                              (_model.apiResult218?.jsonBody ?? ''),
+                                                                                                            ) !=
+                                                                                                            null &&
+                                                                                                        GravacoesCall.base64(
+                                                                                                              (_model.apiResult218?.jsonBody ?? ''),
+                                                                                                            ) !=
+                                                                                                            '') {}
 
                                                                                                     safeSetState(() {});
                                                                                                   },
