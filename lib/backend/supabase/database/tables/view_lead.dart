@@ -59,4 +59,7 @@ class ViewLeadRow extends SupabaseDataRow {
 
   bool? get aprovacaoGestor => getField<bool>('aprovacao_gestor');
   set aprovacaoGestor(bool? value) => setField<bool>('aprovacao_gestor', value);
+
+  bool? get nomeUsuario => getField<bool>('nome_usuario');
+  set nomeUsuario(bool? value) => setField<bool>('nome_usuario', value);
 }
