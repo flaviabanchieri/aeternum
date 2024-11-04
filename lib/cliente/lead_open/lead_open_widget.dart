@@ -1,7 +1,6 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
-import '/components/produtos_ligacao_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -131,57 +130,9 @@ class _LeadOpenWidgetState extends State<LeadOpenWidget>
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional(1.0, 1.0),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: Container(
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 0.5,
-                                  child: ProdutosLigacaoWidget(),
-                                ),
-                              );
-                            },
-                          ).then((value) => safeSetState(() {}));
-                        },
-                        text: 'Ver produtos',
-                        icon: Icon(
-                          Icons.open_in_new,
-                          size: 15.0,
-                        ),
-                        options: FFButtonOptions(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Color(0x00FFFFFF),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Manrope',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    letterSpacing: 0.0,
-                                  ),
-                          elevation: 0.0,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                    ),
-                  ),
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 20.0, 24.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -247,7 +198,10 @@ class _LeadOpenWidgetState extends State<LeadOpenWidget>
 
                                 return FlutterFlowRadioButton(
                                   options: radioButtonLigacaoStatusRowList
-                                      .map((e) => e.status)
+                                      .map((e) => valueOrDefault<String>(
+                                            e.status,
+                                            'status',
+                                          ))
                                       .toList()
                                       .toList(),
                                   onChanged: (val) async {
@@ -267,7 +221,7 @@ class _LeadOpenWidgetState extends State<LeadOpenWidget>
                                   },
                                   controller:
                                       _model.radioButtonValueController ??=
-                                          FormFieldController<String>('0'),
+                                          FormFieldController<String>(''),
                                   optionHeight: 32.0,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .labelMedium

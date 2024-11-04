@@ -244,3 +244,34 @@ DateTime? adicionarHoras(int horas) {
   // return datetime in 1 hour from now
   return DateTime.now().add(Duration(hours: horas));
 }
+
+String? setTelefone(String? telefone) {
+  // given telefone adjust it to be a brazilian number
+  if (telefone == null || telefone.isEmpty) {
+    return telefone;
+  }
+
+  // Remove all non-digit characters from the telefone
+  String cleanedTelefone = telefone.replaceAll(RegExp(r'\D'), '');
+
+  // Check if the telefone already has the country code (55 for Brazil)
+  if (cleanedTelefone.length == 11 && cleanedTelefone.startsWith('55')) {
+    // No need to modify as the country code is already present
+    return cleanedTelefone;
+  } else if (cleanedTelefone.length == 10) {
+    // If the number has 10 digits, add the country code
+    cleanedTelefone = '55$cleanedTelefone';
+  }
+
+  return cleanedTelefone;
+}
+
+List<dynamic>? newCustomFunction(List<dynamic>? apiCall) {
+  //   // given a api call return the json body
+  if (apiCall != null) {
+    // process the api call and return the json body
+    return apiCall;
+  } else {
+    return null;
+  }
+}

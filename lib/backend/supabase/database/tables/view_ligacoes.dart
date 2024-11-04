@@ -44,6 +44,9 @@ class ViewLigacoesRow extends SupabaseDataRow {
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
 
+  String? get urlGravacao => getField<String>('url_gravacao');
+  set urlGravacao(String? value) => setField<String>('url_gravacao', value);
+
   String? get statusLigacao => getField<String>('status_ligacao');
   set statusLigacao(String? value) => setField<String>('status_ligacao', value);
 

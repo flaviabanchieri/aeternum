@@ -3,9 +3,9 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/cliente/arquivo/arquivo_widget.dart';
 import '/cliente/arquivo_visualizar/arquivo_visualizar_widget.dart';
-import '/cliente/lead_open/lead_open_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
+import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -15,6 +15,7 @@ import '/widgets_compartilhados/sidenav/sidenav_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'info_lead_widget.dart' show InfoLeadWidget;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -35,17 +36,29 @@ class InfoLeadModel extends FlutterFlowModel<InfoLeadWidget> {
 
   DateTime? dataFinal;
 
+  bool ligacaoTerminou = false;
+
+  bool agendado = false;
+
+  int? idLigacao = 0;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for Sidenav component.
   late SidenavModel sidenavModel;
   // Model for header component.
   late HeaderModel headerModel;
+  // State field(s) for DropDownUser widget.
+  String? dropDownUserValue;
+  FormFieldController<String>? dropDownUserValueController;
+  // State field(s) for DropDown widget.
+  int? dropDownValue1;
+  FormFieldController<int>? dropDownValueController1;
   // Stores action output result for [Backend Call - API (Click to Call)] action in Button widget.
   ApiCallResponse? fazerligacao;
   // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownValueController2;
   // Stores action output result for [Backend Call - Query Rows] action in Button widget.
   List<ProdutoRow>? queryListaProdutosUrl;
   Completer<List<ViewLeadComprovantesRow>>? requestCompleter;
@@ -53,6 +66,15 @@ class InfoLeadModel extends FlutterFlowModel<InfoLeadWidget> {
   ApiCallResponse? apiFaturamentoUsuario;
   // Stores action output result for [Backend Call - API (Quantidade de vendas por atendente)] action in btn_aprovar_venda widget.
   ApiCallResponse? apiQuantifadeVendas;
+  // State field(s) for RadioButton widget.
+  FormFieldController<String>? radioButtonValueController;
+  DateTime? datePicked;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode1;
+  TextEditingController? textController1;
+  String? Function(BuildContext, String?)? textController1Validator;
+  // Stores action output result for [Backend Call - API (Terminar Ligacao)] action in Button widget.
+  ApiCallResponse? terminarLigacao;
   // State field(s) for TabBar widget.
   TabController? tabBarController1;
   int get tabBarCurrentIndex1 =>
@@ -65,6 +87,10 @@ class InfoLeadModel extends FlutterFlowModel<InfoLeadWidget> {
 
   // Stores action output result for [Backend Call - API (gravacoes)] action in IconButton widget.
   ApiCallResponse? apiResult218;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode2;
+  TextEditingController? textController2;
+  String? Function(BuildContext, String?)? textController2Validator;
 
   @override
   void initState(BuildContext context) {
@@ -76,8 +102,13 @@ class InfoLeadModel extends FlutterFlowModel<InfoLeadWidget> {
   void dispose() {
     sidenavModel.dispose();
     headerModel.dispose();
+    textFieldFocusNode1?.dispose();
+    textController1?.dispose();
+
     tabBarController1?.dispose();
     tabBarController2?.dispose();
+    textFieldFocusNode2?.dispose();
+    textController2?.dispose();
   }
 
   /// Additional helper methods.
@@ -95,4 +126,6 @@ class InfoLeadModel extends FlutterFlowModel<InfoLeadWidget> {
       }
     }
   }
+
+  String? get radioButtonValue => radioButtonValueController?.value;
 }

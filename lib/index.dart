@@ -15,7 +15,7 @@ export '/perfil/relatorio/relatorio/relatorio_widget.dart' show RelatorioWidget;
 export '/perfil/profile/profile_widget.dart' show ProfileWidget;
 export '/perfil/editar_perfil/editar_perfil_widget.dart'
     show EditarPerfilWidget;
-export '/pages/load/load_widget.dart' show LoadWidget;
+export '/dashboard/pages/load/load_widget.dart' show LoadWidget;
 export '/cadastro_usuarios/cadastro_usuarios_widget.dart'
     show CadastroUsuariosWidget;
 export '/alterar_senha/alterar_senha_widget.dart' show AlterarSenhaWidget;

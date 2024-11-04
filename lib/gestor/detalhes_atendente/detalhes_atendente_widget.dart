@@ -841,7 +841,7 @@ class _DetalhesAtendenteWidgetState extends State<DetalhesAtendenteWidget>
                                                   unselectedLabelColor:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .secondaryText,
+                                                          .primaryText,
                                                   labelStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .titleMedium

@@ -5,7 +5,6 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -69,71 +68,33 @@ class _LoadWidgetState extends State<LoadWidget> {
       FFAppState().pagina = Pagina.dashboard;
       FFAppState().update(() {});
       if (_model.permissao == 1) {
-        _model.dataInicial = functions.montarData(
-            1, functions.mesAtual(), functions.anoAtual(), false);
-        _model.dataFinal = functions.montarData(
-            functions.retornaUltimoDiaMes(
-                functions.mesAtual(), functions.anoAtual()),
-            functions.mesAtual(),
-            functions.anoAtual(),
-            true);
-        safeSetState(() {});
-        _model.apiQuantidadeLeadsLoad =
-            await QuantidadeDeLeadsPorPeriodoCall.call(
-          dataInicial: _model.dataInicial?.toString(),
-          dataFinal: _model.dataFinal?.toString(),
+        _model.painelGestor = await ObterPainelCardsCall.call(
+          userId: currentUserUid,
+          permissao: FFAppState().permissao.toString(),
         );
 
-        _model.apiCountLeadConcluidoLoad =
-            await QuantidadeLeadsConcluidoCall.call(
-          dataInicial: _model.dataInicial?.toString(),
-          dataFinal: functions
-              .montarData(
-                  functions.retornaUltimoDiaMes(
-                      functions.mesAtual(), functions.anoAtual()),
-                  functions.mesAtual(),
-                  functions.anoAtual(),
-                  true)
-              ?.toString(),
-        );
-
-        _model.apiResultQuantidadeVendasLoad =
-            await QuantidadeVendasRealizadasCall.call(
-          dataInicial: _model.dataInicial?.toString(),
-          dataFinal: functions
-              .montarData(
-                  functions.retornaUltimoDiaMes(
-                      functions.mesAtual(), functions.anoAtual()),
-                  functions.mesAtual(),
-                  functions.anoAtual(),
-                  true)
-              ?.toString(),
-        );
-
-        _model.apiResultFaturamentoMensalLoad =
-            await FaturamentoMensalCall.call(
-          dataInicial: _model.dataInicial?.toString(),
-          dataFinal: functions
-              .montarData(
-                  functions.retornaUltimoDiaMes(
-                      functions.mesAtual(), functions.anoAtual()),
-                  functions.mesAtual(),
-                  functions.anoAtual(),
-                  true)
-              ?.toString(),
-        );
-
-        FFAppState().totalLeadGestor =
-            (_model.apiQuantidadeLeadsLoad?.jsonBody ?? '');
-        FFAppState().totalConcluidoGestor =
-            (_model.apiCountLeadConcluidoLoad?.jsonBody ?? '');
-        FFAppState().totalRealizadasGestor =
-            (_model.apiResultQuantidadeVendasLoad?.jsonBody ?? '');
-        FFAppState().totalFaturamentoGestor = valueOrDefault<double>(
-          getJsonField(
-            (_model.apiResultFaturamentoMensalLoad?.jsonBody ?? ''),
-            r'''$''',
+        FFAppState().totalLeadGestor = valueOrDefault<int>(
+          ObterPainelCardsCall.total(
+            (_model.painelGestor?.jsonBody ?? ''),
           ),
+          0,
+        );
+        FFAppState().totalConcluidoGestor = valueOrDefault<int>(
+          ObterPainelCardsCall.concluidos(
+            (_model.painelGestor?.jsonBody ?? ''),
+          ),
+          0,
+        );
+        FFAppState().totalRealizadasGestor = valueOrDefault<int>(
+          ObterPainelCardsCall.vendidos(
+            (_model.painelGestor?.jsonBody ?? ''),
+          ),
+          0,
+        );
+        FFAppState().totalFaturamentoGestor = valueOrDefault<double>(
+          ObterPainelCardsCall.faturado(
+            (_model.painelGestor?.jsonBody ?? ''),
+          )?.toDouble(),
           0.0,
         );
         FFAppState().update(() {});
@@ -151,78 +112,48 @@ class _LoadWidgetState extends State<LoadWidget> {
           if (_model.passwordDefault!) {
             context.goNamedAuth('AlterarSenha', context.mounted);
           } else {
-            _model.dataInicial = functions.montarData(
-                1, functions.mesAtual(), functions.anoAtual(), false);
-            _model.dataFinal = functions.montarData(
-                functions.retornaUltimoDiaMes(
-                    functions.mesAtual(), functions.anoAtual()),
-                functions.mesAtual(),
-                functions.anoAtual(),
-                true);
-            safeSetState(() {});
-            _model.queryConfiguracaoInicialLoad =
-                await ConfiguracoesTable().queryRows(
-              queryFn: (q) => q.eq(
-                'mes_ano',
-                functions.mesAnoAtual(),
+            _model.painelA = await ObterPainelCardsCall.call(
+              userId: currentUserUid,
+              permissao: valueOrDefault<String>(
+                FFAppState().permissao.toString(),
+                '2',
               ),
-            );
-            _model.retuurnCountLeadsAtendenteLoad =
-                await QuantidadeDeLeadsAtendenteCall.call(
-              dataInicial: _model.dataInicial?.toString(),
-              dataFinal: _model.dataFinal?.toString(),
-              atendente: currentUserUid,
-            );
-
-            _model.queryQuantidadeLigacoes = await LigacoesTable().queryRows(
-              queryFn: (q) => q.eq(
-                'user_id',
-                currentUserUid,
-              ),
-            );
-            _model.retornoApiLeadsConcluidosAtendente =
-                await QuantidadeDeLeadsConcluidosPorAtendenteCall.call(
-              dataInicial: _model.dataInicial?.toString(),
-              dataFinal: _model.dataFinal?.toString(),
-              atendente: currentUserUid,
-            );
-
-            _model.apiReturQuantidadeVendasAtendente =
-                await QuantidadeDeVendasPorAtendenteCall.call(
-              dataInicial: _model.dataInicial?.toString(),
-              dataFinal: _model.dataFinal?.toString(),
-              atendente: currentUserUid,
-            );
-
-            _model.faturamentoAtendente = await RelatorioFaturamentoCall.call(
-              dataInicial: valueOrDefault<String>(
-                _model.dataInicial?.toString(),
-                '01/01/2001',
-              ),
-              dataFinal: _model.dataFinal?.toString(),
-              usuario: currentUserUid,
             );
 
             FFAppState().valorMetaDashboard = valueOrDefault<double>(
-              _model.queryConfiguracaoInicialLoad?.first?.valorMetaMensal,
+              ObterPainelCardsCall.meta(
+                (_model.painelA?.jsonBody ?? ''),
+              )?.toDouble(),
               0.0,
             );
-            FFAppState().totalLead =
-                (_model.retuurnCountLeadsAtendenteLoad?.jsonBody ?? '');
+            FFAppState().totalLead = valueOrDefault<int>(
+              ObterPainelCardsCall.total(
+                (_model.painelA?.jsonBody ?? ''),
+              ),
+              0,
+            );
             FFAppState().totalLigacoesAtendente = valueOrDefault<int>(
-              _model.queryQuantidadeLigacoes?.length,
+              ObterPainelCardsCall.ligacao(
+                (_model.painelA?.jsonBody ?? ''),
+              ),
               0,
             );
             FFAppState().totalRealizados = valueOrDefault<int>(
-              (_model.retornoApiLeadsConcluidosAtendente?.jsonBody ?? ''),
+              ObterPainelCardsCall.concluidos(
+                (_model.painelA?.jsonBody ?? ''),
+              ),
               0,
             );
             FFAppState().totalVendasAtendente = valueOrDefault<int>(
-              (_model.apiReturQuantidadeVendasAtendente?.jsonBody ?? ''),
+              ObterPainelCardsCall.vendidos(
+                (_model.painelA?.jsonBody ?? ''),
+              ),
               0,
             );
             FFAppState().totalFaturamentoAtendente = valueOrDefault<int>(
-              (_model.faturamentoAtendente?.jsonBody ?? ''),
+              ObterPainelCardsCall.faturado(
+                (_model.painelA?.jsonBody ?? ''),
+              ),
               0,
             );
             FFAppState().update(() {});

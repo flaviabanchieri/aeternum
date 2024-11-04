@@ -1314,6 +1314,11 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                           ),
                                                     ),
                                                   ),
+                                                  Icon(
+                                                    Icons.arrow_back,
+                                                    color: Color(0x00161C24),
+                                                    size: 24.0,
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -1578,6 +1583,55 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                                       ),
                                                                     ),
                                                                 ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  if (getJsonField(
+                                                                        relatorioItem,
+                                                                        r'''$.url_gravacao''',
+                                                                      ) !=
+                                                                      null) {
+                                                                    await launchURL(
+                                                                        getJsonField(
+                                                                      relatorioItem,
+                                                                      r'''$.url_gravacao''',
+                                                                    ).toString());
+                                                                    return;
+                                                                  } else {
+                                                                    return;
+                                                                  }
+                                                                },
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .download_sharp,
+                                                                  color: getJsonField(
+                                                                            relatorioItem,
+                                                                            r'''$.url_gravacao''',
+                                                                          ) !=
+                                                                          null
+                                                                      ? FlutterFlowTheme.of(context).primaryText
+                                                                      : Colors.transparent,
+                                                                  size: 24.0,
+                                                                ),
                                                               ),
                                                             ),
                                                           ],

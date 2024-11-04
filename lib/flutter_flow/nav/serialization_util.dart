@@ -238,10 +238,14 @@ dynamic deserializeParam<T>(
             return LeadRow(data);
           case UsuarioSituacaoRow:
             return UsuarioSituacaoRow(data);
+          case LeadNotasRow:
+            return LeadNotasRow(data);
           case LigacaoStatusRow:
             return LigacaoStatusRow(data);
           case ViewLeadRow:
             return ViewLeadRow(data);
+          case RelatorioLigacoesRow:
+            return RelatorioLigacoesRow(data);
           case RankingRow:
             return RankingRow(data);
           case LeadOrigemRow:

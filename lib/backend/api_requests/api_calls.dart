@@ -444,6 +444,16 @@ class FiltraLeadsCall {
         response,
         r'''$[:].email''',
       ));
+  static String? nomeProduto(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].nome_produto''',
+      ));
+  static String? nomeAtendente(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].nome_usuario''',
+      ));
 }
 
 class RelatorioLigacoesCall {
@@ -753,6 +763,15 @@ class GravacoesCall {
       alwaysAllowBody: false,
     );
   }
+
+  static String? base64(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].data''',
+      ));
+  static String? url(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.url_gravacao''',
+      ));
 }
 
 class GetUsuarioPontoListaCall {
@@ -891,6 +910,153 @@ class ApagarUsuarioCall {
       alwaysAllowBody: false,
     );
   }
+}
+
+class ObterPainelCardsCall {
+  static Future<ApiCallResponse> call({
+    String? userId = '',
+    String? permissao = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'obter painel cards',
+      apiUrl:
+          'https://n8n-n8n.7jlhvw.easypanel.host/webhook/57f02662-87eb-44fe-80ed-b33f6160b7d1',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'usuario': userId,
+        'permissao': permissao,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static int? total(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].totalLeads''',
+      ));
+  static int? concluidos(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].leadsConcluidos''',
+      ));
+  static int? vendidos(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].vendidos''',
+      ));
+  static int? faturado(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].fautrado''',
+      ));
+  static int? meta(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].meta''',
+      ));
+  static int? ligacao(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].ligacao''',
+      ));
+}
+
+class LeadsGestorCall {
+  static Future<ApiCallResponse> call({
+    String? nome = '',
+    String? produto = '',
+    String? origem = '',
+    String? dataInicial = '',
+    String? dataFinal = '',
+    String? status = '',
+    bool? aprovado,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Leads Gestor ',
+      apiUrl:
+          'https://n8n-n8n.7jlhvw.easypanel.host/webhook/ff1b2ea5-447b-4b7d-85ec-2ac5174a718d',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'nome': nome,
+        'produto': produto,
+        'origem': origem,
+        'dataInicial': dataInicial,
+        'dataFinal': dataFinal,
+        'status': status,
+        'aprovado': aprovado,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? data(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].created_at''',
+      ));
+  static int? id(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].id_lead''',
+      ));
+  static String? nome(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].nome_lead''',
+      ));
+  static String? telefone(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].telefone''',
+      ));
+  static String? produtocodigo(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].produto_codigo''',
+      ));
+  static String? nomeproduto(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].nome_produto''',
+      ));
+  static String? agendamento(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].data_agendamento''',
+      ));
+  static String? filtrodata(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].data_filtro''',
+      ));
+  static int? status(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].status''',
+      ));
+  static String? origem(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].origem''',
+      ));
+  static String? userId(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].usuario''',
+      ));
+  static String? nomeAtendente(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$[:].nome_usuario''',
+      ));
+  static String? email(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].email''',
+      ));
+  static String? linkCart(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].link''',
+      ));
 }
 
 class ApiPagingParams {

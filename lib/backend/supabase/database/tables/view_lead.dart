@@ -51,6 +51,9 @@ class ViewLeadRow extends SupabaseDataRow {
   String? get usuario => getField<String>('usuario');
   set usuario(String? value) => setField<String>('usuario', value);
 
+  String? get nomeUsuario => getField<String>('nome_usuario');
+  set nomeUsuario(String? value) => setField<String>('nome_usuario', value);
+
   String? get email => getField<String>('email');
   set email(String? value) => setField<String>('email', value);
 

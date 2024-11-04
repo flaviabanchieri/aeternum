@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/widgets_compartilhados/header/header_widget.dart';
 import '/widgets_compartilhados/sidenav/sidenav_widget.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'leads_gestor_widget.dart' show LeadsGestorWidget;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -110,6 +109,21 @@ class LeadsGestorModel extends FlutterFlowModel<LeadsGestorWidget> {
 
   bool carregando = true;
 
+  List<dynamic> listaLeadVendido = [];
+  void addToListaLeadVendido(dynamic item) => listaLeadVendido.add(item);
+  void removeFromListaLeadVendido(dynamic item) =>
+      listaLeadVendido.remove(item);
+  void removeAtIndexFromListaLeadVendido(int index) =>
+      listaLeadVendido.removeAt(index);
+  void insertAtIndexInListaLeadVendido(int index, dynamic item) =>
+      listaLeadVendido.insert(index, item);
+  void updateListaLeadVendidoAtIndex(int index, Function(dynamic) updateFn) =>
+      listaLeadVendido[index] = updateFn(listaLeadVendido[index]);
+
+  DateTime? dataIncial;
+
+  DateTime? dataFinal;
+
   List<dynamic> listaLeadCancelado = [];
   void addToListaLeadCancelado(dynamic item) => listaLeadCancelado.add(item);
   void removeFromListaLeadCancelado(dynamic item) =>
@@ -121,24 +135,20 @@ class LeadsGestorModel extends FlutterFlowModel<LeadsGestorWidget> {
   void updateListaLeadCanceladoAtIndex(int index, Function(dynamic) updateFn) =>
       listaLeadCancelado[index] = updateFn(listaLeadCancelado[index]);
 
-  DateTime? dataIncial;
-
-  DateTime? dataFinal;
-
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (Lista de Nomes Lead)] action in LeadsGestor widget.
-  ApiCallResponse? apiListaNomeLeads;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in LeadsGestor widget.
-  ApiCallResponse? listaIniciarEntrarEmContato;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in LeadsGestor widget.
-  ApiCallResponse? listaIniciarLeadEmProgresso;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in LeadsGestor widget.
-  ApiCallResponse? listaIniciarLeadAguandoAprovacao;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in LeadsGestor widget.
-  ApiCallResponse? listaIniciarLeadConcluido;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in LeadsGestor widget.
-  ApiCallResponse? listaIniciarLeadCancelado;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in LeadsGestor widget.
+  ApiCallResponse? entrarEmContatoApi;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in LeadsGestor widget.
+  ApiCallResponse? andamentoApi;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in LeadsGestor widget.
+  ApiCallResponse? aprovacaoApi;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in LeadsGestor widget.
+  ApiCallResponse? concluidoApi;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in LeadsGestor widget.
+  ApiCallResponse? vendidoApi;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in LeadsGestor widget.
+  ApiCallResponse? canceladoApi;
   // Model for Sidenav component.
   late SidenavModel sidenavModel;
   // Model for header component.
@@ -149,27 +159,36 @@ class LeadsGestorModel extends FlutterFlowModel<LeadsGestorWidget> {
   // State field(s) for DropDownOrigem widget.
   String? dropDownOrigemValue;
   FormFieldController<String>? dropDownOrigemValueController;
-  // State field(s) for DropDownLead widget.
-  String? dropDownLeadValue;
-  FormFieldController<String>? dropDownLeadValueController;
+  // State field(s) for TextFieldNome widget.
+  FocusNode? textFieldNomeFocusNode;
+  TextEditingController? textFieldNomeTextController;
+  String? Function(BuildContext, String?)? textFieldNomeTextControllerValidator;
   DateTime? datePicked1;
   DateTime? datePicked2;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
-  ApiCallResponse? apiResultLeadEntrarEmContatoFiltroCopy;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
-  ApiCallResponse? apiResultLeadEmAndamentoFiltroCopy;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
-  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltroCopy;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
-  ApiCallResponse? apiResultLeadConcluidoFiltroCopy;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
-  ApiCallResponse? apiResultLeadEntrarEmContatoFiltro1;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
-  ApiCallResponse? apiResultLeadEmAndamentoFiltro1;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
-  ApiCallResponse? apiResultLeadAguardandoConfirmacaoFiltro1;
-  // Stores action output result for [Backend Call - API (Filtra leads)] action in ButtonLimparFiltros widget.
-  ApiCallResponse? apiResultLeadConcluidoFiltro1;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? entrarEmContatoApiCopy;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? andamentoApiCopy;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? aprovacaoApiCopy;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? concluidoApiCopy;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? vendidoApi1;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? canceladoApi1;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? entrarEmContatoApiCopy1;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? andamentoApiCopy1;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? aprovacaoApiCopy1;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? concluidoApiCopy1;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? vendidoApi2;
+  // Stores action output result for [Backend Call - API (Leads Gestor )] action in ButtonLimparFiltros widget.
+  ApiCallResponse? canceladoApi2;
 
   @override
   void initState(BuildContext context) {
@@ -181,5 +200,7 @@ class LeadsGestorModel extends FlutterFlowModel<LeadsGestorWidget> {
   void dispose() {
     sidenavModel.dispose();
     headerModel.dispose();
+    textFieldNomeFocusNode?.dispose();
+    textFieldNomeTextController?.dispose();
   }
 }
