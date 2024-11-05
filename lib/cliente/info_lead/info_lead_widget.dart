@@ -3304,7 +3304,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                             .primaryText,
                                                                     unselectedLabelColor:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
+                                                                            .primaryText,
                                                                     labelStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .titleMedium
@@ -3805,13 +3805,13 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                       ),
                                                                       FutureBuilder<
                                                                           List<
-                                                                              LeadNotasRow>>(
+                                                                              ProdutoRow>>(
                                                                         future:
-                                                                            LeadNotasTable().querySingleRow(
+                                                                            ProdutoTable().querySingleRow(
                                                                           queryFn: (q) =>
                                                                               q.eq(
-                                                                            'id_lead',
-                                                                            widget!.id,
+                                                                            'codigo',
+                                                                            infoLeadViewLeadRow?.produtoCodigo,
                                                                           ),
                                                                         ),
                                                                         builder:
@@ -3832,12 +3832,12 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                               ),
                                                                             );
                                                                           }
-                                                                          List<LeadNotasRow>
-                                                                              columnLeadNotasRowList =
+                                                                          List<ProdutoRow>
+                                                                              columnProdutoRowList =
                                                                               snapshot.data!;
 
-                                                                          final columnLeadNotasRow = columnLeadNotasRowList.isNotEmpty
-                                                                              ? columnLeadNotasRowList.first
+                                                                          final columnProdutoRow = columnProdutoRowList.isNotEmpty
+                                                                              ? columnProdutoRowList.first
                                                                               : null;
 
                                                                           return Column(
@@ -3852,7 +3852,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                                   child: SelectionArea(
                                                                                       child: Text(
                                                                                     valueOrDefault<String>(
-                                                                                      columnLeadNotasRow?.texto,
+                                                                                      columnProdutoRow?.descricao,
                                                                                       'Sem anotações',
                                                                                     ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -3903,7 +3903,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                             .primaryText,
                                                                     unselectedLabelColor:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
+                                                                            .primaryText,
                                                                     labelStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .titleMedium
