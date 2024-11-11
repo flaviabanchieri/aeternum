@@ -85,6 +85,8 @@ class InfoLeadModel extends FlutterFlowModel<InfoLeadWidget> {
   int get tabBarCurrentIndex2 =>
       tabBarController2 != null ? tabBarController2!.index : 0;
 
+  // Stores action output result for [Backend Call - Insert Row] action in Text widget.
+  LigacoesRow? ligacaoManual;
   // Stores action output result for [Backend Call - API (gravacoes)] action in IconButton widget.
   ApiCallResponse? apiResult218;
   // State field(s) for TextField widget.

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -669,16 +670,10 @@ class _HomePageGestorWidgetState extends State<HomePageGestorWidget> {
                                                         decoration:
                                                             BoxDecoration(),
                                                         child: FutureBuilder<
-                                                            List<
-                                                                ViewRankingRow>>(
+                                                            ApiCallResponse>(
                                                           future:
-                                                              ViewRankingTable()
-                                                                  .queryRows(
-                                                            queryFn: (q) =>
-                                                                q.order(
-                                                                    'faturamento'),
-                                                            limit: 3,
-                                                          ),
+                                                              ObterTopRankingCall
+                                                                  .call(),
                                                           builder: (context,
                                                               snapshot) {
                                                             // Customize what your widget looks like when it's loading.
@@ -701,147 +696,152 @@ class _HomePageGestorWidgetState extends State<HomePageGestorWidget> {
                                                                 ),
                                                               );
                                                             }
-                                                            List<ViewRankingRow>
-                                                                listViewViewRankingRowList =
+                                                            final listViewObterTopRankingResponse =
                                                                 snapshot.data!;
 
-                                                            return ListView
-                                                                .builder(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              scrollDirection:
-                                                                  Axis.horizontal,
-                                                              itemCount:
-                                                                  listViewViewRankingRowList
+                                                            return Builder(
+                                                              builder:
+                                                                  (context) {
+                                                                final item =
+                                                                    listViewObterTopRankingResponse
+                                                                        .jsonBody
+                                                                        .toList();
+
+                                                                return ListView
+                                                                    .builder(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  scrollDirection:
+                                                                      Axis.horizontal,
+                                                                  itemCount: item
                                                                       .length,
-                                                              itemBuilder: (context,
-                                                                  listViewIndex) {
-                                                                final listViewViewRankingRow =
-                                                                    listViewViewRankingRowList[
-                                                                        listViewIndex];
-                                                                return Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          itemIndex) {
+                                                                    final itemItem =
+                                                                        item[
+                                                                            itemIndex];
+                                                                    return Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           12.0,
                                                                           0.0,
                                                                           0.0,
                                                                           12.0),
-                                                                  child:
-                                                                      Material(
-                                                                    color: Colors
-                                                                        .transparent,
-                                                                    elevation:
-                                                                        6.0,
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8.0),
-                                                                    ),
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          110.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
-                                                                        ),
-                                                                      ),
                                                                       child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                6.0,
-                                                                                0.0,
-                                                                                6.0),
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Container(
-                                                                                  width: 50.0,
-                                                                                  height: 50.0,
-                                                                                  clipBehavior: Clip.antiAlias,
-                                                                                  decoration: BoxDecoration(
-                                                                                    shape: BoxShape.circle,
-                                                                                  ),
-                                                                                  child: Image.network(
-                                                                                    'https://picsum.photos/seed/975/600',
-                                                                                    fit: BoxFit.cover,
-                                                                                  ),
-                                                                                ),
-                                                                              ],
+                                                                          Material(
+                                                                        color: Colors
+                                                                            .transparent,
+                                                                        elevation:
+                                                                            6.0,
+                                                                        shape:
+                                                                            RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(8.0),
+                                                                        ),
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              110.0,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryBackground,
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(8.0),
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                             ),
                                                                           ),
-                                                                          Column(
+                                                                          child:
+                                                                              Column(
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
                                                                             children: [
-                                                                              Text(
-                                                                                valueOrDefault<String>(
-                                                                                  listViewViewRankingRow.nomeUsuario,
-                                                                                  'Nome',
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Manrope',
-                                                                                      fontSize: 12.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      fontWeight: FontWeight.bold,
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      width: 50.0,
+                                                                                      height: 50.0,
+                                                                                      clipBehavior: Clip.antiAlias,
+                                                                                      decoration: BoxDecoration(
+                                                                                        shape: BoxShape.circle,
+                                                                                      ),
+                                                                                      child: Image.network(
+                                                                                        'https://picsum.photos/seed/975/600',
+                                                                                        fit: BoxFit.cover,
+                                                                                      ),
                                                                                     ),
-                                                                              ),
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                                                                                child: Text(
-                                                                                  'Vendas: ${valueOrDefault<String>(
-                                                                                    listViewViewRankingRow.quantidadeVendas?.toString(),
-                                                                                    '0',
-                                                                                  )}',
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Manrope',
-                                                                                        fontSize: 12.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                      ),
+                                                                                  ],
                                                                                 ),
                                                                               ),
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                                                                                child: Text(
-                                                                                  valueOrDefault<String>(
-                                                                                    functions.mascaraValorReal(valueOrDefault<double>(
-                                                                                      listViewViewRankingRow.faturamento,
-                                                                                      0.0,
-                                                                                    )),
-                                                                                    '0',
+                                                                              Column(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    getJsonField(
+                                                                                      itemItem,
+                                                                                      r'''$.nome_usuario''',
+                                                                                    ).toString(),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Manrope',
+                                                                                          fontSize: 12.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                        ),
                                                                                   ),
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Manrope',
-                                                                                        color: FlutterFlowTheme.of(context).secondary,
-                                                                                        fontSize: 12.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        fontWeight: FontWeight.bold,
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      'Vendas: ${valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          itemItem,
+                                                                                          r'''$.total_vendas''',
+                                                                                        )?.toString(),
+                                                                                        '0',
+                                                                                      )}',
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Manrope',
+                                                                                            fontSize: 12.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      valueOrDefault<String>(
+                                                                                        functions.mascaraValorReal(valueOrDefault<double>(
+                                                                                          getJsonField(
+                                                                                            itemItem,
+                                                                                            r'''$.total_faturamento''',
+                                                                                          ),
+                                                                                          0.0,
+                                                                                        )),
+                                                                                        '0',
                                                                                       ),
-                                                                                ),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Manrope',
+                                                                                            color: FlutterFlowTheme.of(context).secondary,
+                                                                                            fontSize: 12.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                            fontWeight: FontWeight.bold,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                        ],
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ),
+                                                                    );
+                                                                  },
                                                                 );
                                                               },
                                                             );
@@ -1548,7 +1548,7 @@ class _HomePageGestorWidgetState extends State<HomePageGestorWidget> {
                                                                             _model.dropDownValue,
                                                                           )
                                                                           .order(
-                                                                              'referencia'),
+                                                                              'faturamento'),
                                                                 ),
                                                                 builder: (context,
                                                                     snapshot) {

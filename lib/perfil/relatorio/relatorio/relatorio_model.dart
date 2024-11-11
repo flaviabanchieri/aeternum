@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -43,20 +44,12 @@ class RelatorioModel extends FlutterFlowModel<RelatorioWidget> {
 
   double? faturamento;
 
+  int pagina = 1;
+
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (Count Relatorio Ligacoes)] action in Relatorio widget.
-  ApiCallResponse? queryCountLigacoes;
-  // Stores action output result for [Backend Call - API (Count Relatorio Ligacoes)] action in Relatorio widget.
-  ApiCallResponse? queryCountLigacoesEmAndamento;
-  // Stores action output result for [Backend Call - API (Relatorio Ligacoes)] action in Relatorio widget.
+  // Stores action output result for [Backend Call - API (Relatorio de gestor)] action in Relatorio widget.
   ApiCallResponse? queryRetornoRelatorioIniciar;
-  // Stores action output result for [Backend Call - API (Relatorio Tempo Ligacoes)] action in Relatorio widget.
-  ApiCallResponse? retornoTempoDeLigacao;
-  // Stores action output result for [Backend Call - API (Relatorio Media Tempo Ligacao)] action in Relatorio widget.
-  ApiCallResponse? retornoMediaTempoDeLigacao;
-  // Stores action output result for [Backend Call - API (Relatorio Faturamento)] action in Relatorio widget.
-  ApiCallResponse? retornoApiRelatorioFaturamento;
   // Model for Sidenav component.
   late SidenavModel sidenavModel;
   // Model for header component.
@@ -70,27 +63,23 @@ class RelatorioModel extends FlutterFlowModel<RelatorioWidget> {
   // State field(s) for DropDownAtendente widget.
   String? dropDownAtendenteValue;
   FormFieldController<String>? dropDownAtendenteValueController;
-  // State field(s) for DropDownPorduto widget.
-  String? dropDownPordutoValue;
-  FormFieldController<String>? dropDownPordutoValueController;
+  // State field(s) for DropDownProduto widget.
+  String? dropDownProdutoValue;
+  FormFieldController<String>? dropDownProdutoValueController;
   // State field(s) for DropDownOrigem widget.
   String? dropDownOrigemValue;
   FormFieldController<String>? dropDownOrigemValueController;
   // State field(s) for DropDownStatus widget.
   String? dropDownStatusValue;
   FormFieldController<String>? dropDownStatusValueController;
-  // Stores action output result for [Backend Call - API (Relatorio Ligacoes)] action in Button widget.
+  // Stores action output result for [Backend Call - API (Relatorio de gestor)] action in Button widget.
   ApiCallResponse? apiResultRelatorioFiltro;
-  // Stores action output result for [Backend Call - API (Count Relatorio Ligacoes)] action in Button widget.
-  ApiCallResponse? queryCountLigacoesEmAndamentoPesquisa;
-  // Stores action output result for [Backend Call - API (Count Relatorio Ligacoes)] action in Button widget.
-  ApiCallResponse? apiResultRelatorioCountFiltro;
-  // Stores action output result for [Backend Call - API (Relatorio Tempo Ligacoes)] action in Button widget.
-  ApiCallResponse? apiResultRelatorioTempoLigacaoFiltro;
-  // Stores action output result for [Backend Call - API (Relatorio Media Tempo Ligacao)] action in Button widget.
-  ApiCallResponse? apiResultRelatorioMediaTempoLigacaoFiltro;
-  // Stores action output result for [Backend Call - API (Relatorio Faturamento)] action in Button widget.
-  ApiCallResponse? pesquisaApiFaturamento;
+  // Stores action output result for [Backend Call - API (gravacoes)] action in Icon widget.
+  ApiCallResponse? apiResult218;
+  // Stores action output result for [Backend Call - API (Relatorio de gestor)] action in Icon widget.
+  ApiCallResponse? apiResultRelatorioFiltroCopy;
+  // Stores action output result for [Backend Call - API (Relatorio de gestor)] action in Icon widget.
+  ApiCallResponse? apiResultRelatorioFiltroCopyCopy;
 
   @override
   void initState(BuildContext context) {

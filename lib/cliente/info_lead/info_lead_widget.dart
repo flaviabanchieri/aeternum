@@ -21,7 +21,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import 'info_lead_model.dart';
 export 'info_lead_model.dart';
 
@@ -3960,212 +3959,252 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                         _model
                                                                             .tabBarController2,
                                                                     children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            20.0,
-                                                                            12.0,
-                                                                            20.0,
-                                                                            12.0),
-                                                                        child: FutureBuilder<
-                                                                            List<ViewLigacoesRow>>(
-                                                                          future:
-                                                                              ViewLigacoesTable().queryRows(
-                                                                            queryFn: (q) => q
-                                                                                .eq(
-                                                                                  'id_lead',
-                                                                                  widget!.id,
-                                                                                )
-                                                                                .order('hora_inicio'),
-                                                                          ),
-                                                                          builder:
-                                                                              (context, snapshot) {
-                                                                            // Customize what your widget looks like when it's loading.
-                                                                            if (!snapshot.hasData) {
-                                                                              return Center(
-                                                                                child: SizedBox(
-                                                                                  width: 40.0,
-                                                                                  height: 40.0,
-                                                                                  child: CircularProgressIndicator(
-                                                                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                                                                      FlutterFlowTheme.of(context).primary,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            }
-                                                                            List<ViewLigacoesRow>
-                                                                                listViewLigacoesAtendenteViewLigacoesRowList =
-                                                                                snapshot.data!;
+                                                                      Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(1.0, -1.0),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
+                                                                              child: InkWell(
+                                                                                splashColor: Colors.transparent,
+                                                                                focusColor: Colors.transparent,
+                                                                                hoverColor: Colors.transparent,
+                                                                                highlightColor: Colors.transparent,
+                                                                                onTap: () async {
+                                                                                  _model.ligacaoManual = await LigacoesTable().insert({
+                                                                                    'url_gravacao': '',
+                                                                                    'hora_inicio': supaSerialize<DateTime>(getCurrentTimestamp),
+                                                                                    'hora_fim': supaSerialize<DateTime>(getCurrentTimestamp),
+                                                                                    'lead': infoLeadViewLeadRow?.idLead,
+                                                                                    'user_id': currentUserUid,
+                                                                                    'goTo_ligacao_retorno': 'manual',
+                                                                                    'record_id': 'manual',
+                                                                                  });
+                                                                                  _model.ligacaoTerminou = false;
+                                                                                  _model.idLigacao = _model.ligacaoManual?.id;
+                                                                                  safeSetState(() {});
 
-                                                                            return ListView.separated(
-                                                                              padding: EdgeInsets.fromLTRB(
-                                                                                0,
-                                                                                16.0,
-                                                                                0,
-                                                                                16.0,
+                                                                                  safeSetState(() {});
+                                                                                },
+                                                                                child: Text(
+                                                                                  'Adicionar',
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Manrope',
+                                                                                        color: FlutterFlowTheme.of(context).primary,
+                                                                                        letterSpacing: 0.0,
+                                                                                      ),
+                                                                                ),
                                                                               ),
-                                                                              shrinkWrap: true,
-                                                                              scrollDirection: Axis.vertical,
-                                                                              itemCount: listViewLigacoesAtendenteViewLigacoesRowList.length,
-                                                                              separatorBuilder: (_, __) => SizedBox(height: 0.0),
-                                                                              itemBuilder: (context, listViewLigacoesAtendenteIndex) {
-                                                                                final listViewLigacoesAtendenteViewLigacoesRow = listViewLigacoesAtendenteViewLigacoesRowList[listViewLigacoesAtendenteIndex];
-                                                                                return Container(
-                                                                                  width: double.infinity,
-                                                                                  constraints: BoxConstraints(
-                                                                                    maxWidth: 570.0,
+                                                                            ),
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                20.0,
+                                                                                12.0,
+                                                                                20.0,
+                                                                                12.0),
+                                                                            child:
+                                                                                FutureBuilder<List<ViewLigacoesRow>>(
+                                                                              future: ViewLigacoesTable().queryRows(
+                                                                                queryFn: (q) => q
+                                                                                    .eq(
+                                                                                      'id_lead',
+                                                                                      widget!.id,
+                                                                                    )
+                                                                                    .order('hora_inicio'),
+                                                                              ),
+                                                                              builder: (context, snapshot) {
+                                                                                // Customize what your widget looks like when it's loading.
+                                                                                if (!snapshot.hasData) {
+                                                                                  return Center(
+                                                                                    child: SizedBox(
+                                                                                      width: 40.0,
+                                                                                      height: 40.0,
+                                                                                      child: CircularProgressIndicator(
+                                                                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                          FlutterFlowTheme.of(context).primary,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  );
+                                                                                }
+                                                                                List<ViewLigacoesRow> listViewLigacoesAtendenteViewLigacoesRowList = snapshot.data!;
+
+                                                                                return ListView.separated(
+                                                                                  padding: EdgeInsets.fromLTRB(
+                                                                                    0,
+                                                                                    16.0,
+                                                                                    0,
+                                                                                    16.0,
                                                                                   ),
-                                                                                  decoration: BoxDecoration(
-                                                                                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                  ),
-                                                                                  child: Column(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                    children: [
-                                                                                      Row(
+                                                                                  shrinkWrap: true,
+                                                                                  scrollDirection: Axis.vertical,
+                                                                                  itemCount: listViewLigacoesAtendenteViewLigacoesRowList.length,
+                                                                                  separatorBuilder: (_, __) => SizedBox(height: 0.0),
+                                                                                  itemBuilder: (context, listViewLigacoesAtendenteIndex) {
+                                                                                    final listViewLigacoesAtendenteViewLigacoesRow = listViewLigacoesAtendenteViewLigacoesRowList[listViewLigacoesAtendenteIndex];
+                                                                                    return Container(
+                                                                                      width: double.infinity,
+                                                                                      constraints: BoxConstraints(
+                                                                                        maxWidth: 570.0,
+                                                                                      ),
+                                                                                      decoration: BoxDecoration(
+                                                                                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                      ),
+                                                                                      child: Column(
                                                                                         mainAxisSize: MainAxisSize.max,
-                                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                                                         children: [
-                                                                                          Container(
-                                                                                            width: 15.0,
-                                                                                            height: 15.0,
-                                                                                            decoration: BoxDecoration(
-                                                                                              color: FlutterFlowTheme.of(context).accent1,
-                                                                                              shape: BoxShape.circle,
-                                                                                              border: Border.all(
-                                                                                                color: FlutterFlowTheme.of(context).primary,
-                                                                                                width: 2.0,
-                                                                                              ),
-                                                                                            ),
-                                                                                            alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                          ),
-                                                                                          Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                                                                                            child: Text(
-                                                                                              valueOrDefault<String>(
-                                                                                                listViewLigacoesAtendenteViewLigacoesRow.leadNome,
-                                                                                                'Lead',
-                                                                                              ),
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    fontFamily: 'Manrope',
-                                                                                                    letterSpacing: 0.0,
-                                                                                                    fontWeight: FontWeight.bold,
+                                                                                          Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                            children: [
+                                                                                              Container(
+                                                                                                width: 15.0,
+                                                                                                height: 15.0,
+                                                                                                decoration: BoxDecoration(
+                                                                                                  color: FlutterFlowTheme.of(context).accent1,
+                                                                                                  shape: BoxShape.circle,
+                                                                                                  border: Border.all(
+                                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                                    width: 2.0,
                                                                                                   ),
-                                                                                            ),
-                                                                                          ),
-                                                                                          Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
-                                                                                            child: Text(
-                                                                                              '|',
-                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                    fontFamily: 'Manrope',
-                                                                                                    letterSpacing: 0.0,
-                                                                                                    fontWeight: FontWeight.bold,
-                                                                                                  ),
-                                                                                            ),
-                                                                                          ),
-                                                                                          Expanded(
-                                                                                            child: Padding(
-                                                                                              padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                                                                                              child: Text(
-                                                                                                valueOrDefault<String>(
-                                                                                                  listViewLigacoesAtendenteViewLigacoesRow.statusLigacao,
-                                                                                                  'Sem status',
                                                                                                 ),
-                                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                              ),
+                                                                                              Padding(
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                                                child: Text(
+                                                                                                  valueOrDefault<String>(
+                                                                                                    listViewLigacoesAtendenteViewLigacoesRow.leadNome,
+                                                                                                    'Lead',
+                                                                                                  ),
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        fontFamily: 'Manrope',
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FontWeight.bold,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ),
+                                                                                              Padding(
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                                                                                                child: Text(
+                                                                                                  '|',
+                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                        fontFamily: 'Manrope',
+                                                                                                        letterSpacing: 0.0,
+                                                                                                        fontWeight: FontWeight.bold,
+                                                                                                      ),
+                                                                                                ),
+                                                                                              ),
+                                                                                              Expanded(
+                                                                                                child: Padding(
+                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                                                                                                  child: Text(
+                                                                                                    valueOrDefault<String>(
+                                                                                                      listViewLigacoesAtendenteViewLigacoesRow.statusLigacao,
+                                                                                                      'Sem status',
+                                                                                                    ),
+                                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                          fontFamily: 'Manrope',
+                                                                                                          letterSpacing: 0.0,
+                                                                                                          fontWeight: FontWeight.bold,
+                                                                                                        ),
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ),
+                                                                                              Text(
+                                                                                                valueOrDefault<String>(
+                                                                                                  functions.dataHoraAmPm(listViewLigacoesAtendenteViewLigacoesRow.horaInicio),
+                                                                                                  'dd/MM/aaaa hh:mm',
+                                                                                                ),
+                                                                                                style: FlutterFlowTheme.of(context).labelSmall.override(
                                                                                                       fontFamily: 'Manrope',
                                                                                                       letterSpacing: 0.0,
-                                                                                                      fontWeight: FontWeight.bold,
                                                                                                     ),
                                                                                               ),
-                                                                                            ),
-                                                                                          ),
-                                                                                          Text(
-                                                                                            valueOrDefault<String>(
-                                                                                              functions.dataHoraAmPm(listViewLigacoesAtendenteViewLigacoesRow.horaInicio),
-                                                                                              'dd/MM/aaaa hh:mm',
-                                                                                            ),
-                                                                                            style: FlutterFlowTheme.of(context).labelSmall.override(
-                                                                                                  fontFamily: 'Manrope',
-                                                                                                  letterSpacing: 0.0,
+                                                                                              Padding(
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                                child: InkWell(
+                                                                                                  splashColor: Colors.transparent,
+                                                                                                  focusColor: Colors.transparent,
+                                                                                                  hoverColor: Colors.transparent,
+                                                                                                  highlightColor: Colors.transparent,
+                                                                                                  onTap: () async {
+                                                                                                    _model.ligacaoTerminou = true;
+                                                                                                    _model.idLigacao = listViewLigacoesAtendenteViewLigacoesRow.idLigacao;
+                                                                                                    safeSetState(() {});
+                                                                                                  },
+                                                                                                  child: Icon(
+                                                                                                    Icons.edit,
+                                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                    size: 18.0,
+                                                                                                  ),
                                                                                                 ),
+                                                                                              ),
+                                                                                            ],
                                                                                           ),
                                                                                           Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                                                                                            child: InkWell(
-                                                                                              splashColor: Colors.transparent,
-                                                                                              focusColor: Colors.transparent,
-                                                                                              hoverColor: Colors.transparent,
-                                                                                              highlightColor: Colors.transparent,
-                                                                                              onTap: () async {
-                                                                                                _model.ligacaoTerminou = true;
-                                                                                                _model.idLigacao = listViewLigacoesAtendenteViewLigacoesRow.idLigacao;
-                                                                                                safeSetState(() {});
-                                                                                              },
-                                                                                              child: Icon(
-                                                                                                Icons.edit,
-                                                                                                color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                size: 18.0,
+                                                                                            padding: EdgeInsetsDirectional.fromSTEB(9.0, 0.0, 0.0, 0.0),
+                                                                                            child: Container(
+                                                                                              width: double.infinity,
+                                                                                              decoration: BoxDecoration(
+                                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                boxShadow: [
+                                                                                                  BoxShadow(
+                                                                                                    blurRadius: 0.0,
+                                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                                    offset: Offset(
+                                                                                                      -2.0,
+                                                                                                      0.0,
+                                                                                                    ),
+                                                                                                  )
+                                                                                                ],
+                                                                                                border: Border.all(
+                                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                                  width: 1.0,
+                                                                                                ),
+                                                                                              ),
+                                                                                              child: Padding(
+                                                                                                padding: EdgeInsetsDirectional.fromSTEB(26.0, 0.0, 0.0, 0.0),
+                                                                                                child: Column(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                  children: [
+                                                                                                    Text(
+                                                                                                      valueOrDefault<String>(
+                                                                                                        listViewLigacoesAtendenteViewLigacoesRow.observacao,
+                                                                                                        'Sem observação',
+                                                                                                      ),
+                                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                            fontFamily: 'Manrope',
+                                                                                                            letterSpacing: 0.0,
+                                                                                                          ),
+                                                                                                    ),
+                                                                                                    Divider(
+                                                                                                      height: 1.0,
+                                                                                                      thickness: 1.0,
+                                                                                                      indent: 0.0,
+                                                                                                      color: FlutterFlowTheme.of(context).alternate,
+                                                                                                    ),
+                                                                                                  ].addToEnd(SizedBox(height: 12.0)),
+                                                                                                ),
                                                                                               ),
                                                                                             ),
                                                                                           ),
                                                                                         ],
                                                                                       ),
-                                                                                      Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(9.0, 0.0, 0.0, 0.0),
-                                                                                        child: Container(
-                                                                                          width: double.infinity,
-                                                                                          decoration: BoxDecoration(
-                                                                                            color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                            boxShadow: [
-                                                                                              BoxShadow(
-                                                                                                blurRadius: 0.0,
-                                                                                                color: FlutterFlowTheme.of(context).primary,
-                                                                                                offset: Offset(
-                                                                                                  -2.0,
-                                                                                                  0.0,
-                                                                                                ),
-                                                                                              )
-                                                                                            ],
-                                                                                            border: Border.all(
-                                                                                              color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                              width: 1.0,
-                                                                                            ),
-                                                                                          ),
-                                                                                          child: Padding(
-                                                                                            padding: EdgeInsetsDirectional.fromSTEB(26.0, 0.0, 0.0, 0.0),
-                                                                                            child: Column(
-                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                              children: [
-                                                                                                Text(
-                                                                                                  valueOrDefault<String>(
-                                                                                                    listViewLigacoesAtendenteViewLigacoesRow.observacao,
-                                                                                                    'Sem observação',
-                                                                                                  ),
-                                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                        fontFamily: 'Manrope',
-                                                                                                        letterSpacing: 0.0,
-                                                                                                      ),
-                                                                                                ),
-                                                                                                Divider(
-                                                                                                  height: 1.0,
-                                                                                                  thickness: 1.0,
-                                                                                                  indent: 0.0,
-                                                                                                  color: FlutterFlowTheme.of(context).alternate,
-                                                                                                ),
-                                                                                              ].addToEnd(SizedBox(height: 12.0)),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
+                                                                                    );
+                                                                                  },
                                                                                 );
                                                                               },
-                                                                            );
-                                                                          },
-                                                                        ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
                                                                       Column(
                                                                         mainAxisSize:

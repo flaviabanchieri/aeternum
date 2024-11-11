@@ -1,3 +1,4 @@
+import '/auth/supabase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -36,51 +37,40 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.queryCountLigacoes = await CountRelatorioLigacoesCall.call();
-
-      _model.queryCountLigacoesEmAndamento =
-          await CountRelatorioLigacoesCall.call(
-        status: 'Entrar em contato',
-        dataInicial: valueOrDefault<String>(
-          _model.dataInicial?.toString(),
-          '1990-01-01 00:00:00',
-        ),
-        dataFinal: valueOrDefault<String>(
-          _model.dataFinal?.toString(),
-          '2222-12-31 23:59:59',
-        ),
+      _model.queryRetornoRelatorioIniciar = await RelatorioDeGestorCall.call(
+        dataFim: '9999-01-01 00:00:00',
+        dataInicio: '1999-01-01 00:00:00',
       );
 
-      _model.queryRetornoRelatorioIniciar = await RelatorioLigacoesCall.call();
-
-      _model.retornoTempoDeLigacao = await RelatorioTempoLigacoesCall.call();
-
-      _model.retornoMediaTempoDeLigacao =
-          await RelatorioMediaTempoLigacaoCall.call();
-
-      _model.retornoApiRelatorioFaturamento =
-          await RelatorioFaturamentoCall.call();
-
-      _model.countLigacoes = getJsonField(
-        (_model.queryCountLigacoes?.jsonBody ?? ''),
-        r'''$''',
+      _model.countLigacoes = valueOrDefault<int>(
+        RelatorioDeGestorCall.totalLigacoes(
+          (_model.queryRetornoRelatorioIniciar?.jsonBody ?? ''),
+        ),
+        0,
       );
-      _model.listaRelatorio =
-          (_model.queryRetornoRelatorioIniciar?.jsonBody ?? '')
-              .toList()
-              .cast<dynamic>();
-      _model.tempoLigacao = getJsonField(
-        (_model.retornoTempoDeLigacao?.jsonBody ?? ''),
-        r'''$''',
-      ).toString().toString();
-      _model.tempoMedioLigacao = getJsonField(
-        (_model.retornoMediaTempoDeLigacao?.jsonBody ?? ''),
-        r'''$''',
-      ).toString().toString();
-      _model.ligacoesEmAndamento =
-          (_model.queryCountLigacoesEmAndamento?.jsonBody ?? '');
-      _model.faturamento =
-          (_model.retornoApiRelatorioFaturamento?.jsonBody ?? '');
+      _model.listaRelatorio = RelatorioDeGestorCall.ligacoes(
+        (_model.queryRetornoRelatorioIniciar?.jsonBody ?? ''),
+      )!
+          .toList()
+          .cast<dynamic>();
+      _model.tempoLigacao = valueOrDefault<String>(
+        RelatorioDeGestorCall.tempoTotal(
+          (_model.queryRetornoRelatorioIniciar?.jsonBody ?? ''),
+        )?.toString(),
+        '0',
+      );
+      _model.tempoMedioLigacao = valueOrDefault<String>(
+        RelatorioDeGestorCall.tempoMedio(
+          (_model.queryRetornoRelatorioIniciar?.jsonBody ?? ''),
+        )?.toString(),
+        '0',
+      );
+      _model.faturamento = valueOrDefault<double>(
+        RelatorioDeGestorCall.faturamento(
+          (_model.queryRetornoRelatorioIniciar?.jsonBody ?? ''),
+        ),
+        0.0,
+      );
       safeSetState(() {});
     });
 
@@ -129,6 +119,7 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                         child: SingleChildScrollView(
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -309,8 +300,8 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                 );
                                               });
                                             }
-                                            _model.dataFinal =
-                                                _model.datePicked2;
+                                            _model.dataFinal = functions
+                                                .dataFinal(_model.datePicked2);
                                             safeSetState(() {});
                                           },
                                           child: wrapWithModel(
@@ -473,28 +464,28 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                             );
                                           }
                                           List<ProdutoRow>
-                                              dropDownPordutoProdutoRowList =
+                                              dropDownProdutoProdutoRowList =
                                               snapshot.data!;
 
                                           return FlutterFlowDropDown<String>(
                                             controller: _model
-                                                    .dropDownPordutoValueController ??=
+                                                    .dropDownProdutoValueController ??=
                                                 FormFieldController<String>(
-                                              _model.dropDownPordutoValue ??=
+                                              _model.dropDownProdutoValue ??=
                                                   '',
                                             ),
                                             options: List<String>.from(
-                                                dropDownPordutoProdutoRowList
+                                                dropDownProdutoProdutoRowList
                                                     .map((e) => e.codigo)
                                                     .withoutNulls
                                                     .toList()),
                                             optionLabels:
-                                                dropDownPordutoProdutoRowList
+                                                dropDownProdutoProdutoRowList
                                                     .map((e) => e.nome)
                                                     .toList(),
                                             onChanged: (val) => safeSetState(
                                                 () => _model
-                                                        .dropDownPordutoValue =
+                                                        .dropDownProdutoValue =
                                                     val),
                                             width: 300.0,
                                             height: 56.0,
@@ -767,43 +758,57 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                     child: FFButtonWidget(
                                       onPressed: () async {
                                         _model.listaRelatorio =
-                                            (_model.queryRetornoRelatorioIniciar
-                                                        ?.jsonBody ??
-                                                    '')
+                                            RelatorioDeGestorCall.ligacoes(
+                                          (_model.queryRetornoRelatorioIniciar
+                                                  ?.jsonBody ??
+                                              ''),
+                                        )!
                                                 .toList()
                                                 .cast<dynamic>();
                                         _model.dataInicial = null;
                                         _model.dataFinal = null;
-                                        _model.tempoLigacao = (_model
-                                                    .retornoTempoDeLigacao
+                                        _model.tempoLigacao =
+                                            valueOrDefault<String>(
+                                          RelatorioDeGestorCall.tempoTotal(
+                                            (_model.queryRetornoRelatorioIniciar
                                                     ?.jsonBody ??
-                                                '')
-                                            .toString();
-                                        _model.tempoMedioLigacao = (_model
-                                                    .retornoMediaTempoDeLigacao
+                                                ''),
+                                          )?.toString(),
+                                          '0',
+                                        );
+                                        _model.tempoMedioLigacao =
+                                            valueOrDefault<String>(
+                                          RelatorioDeGestorCall.tempoMedio(
+                                            (_model.queryRetornoRelatorioIniciar
                                                     ?.jsonBody ??
-                                                '')
-                                            .toString();
-                                        _model.ligacoesEmAndamento = (_model
-                                                .queryCountLigacoesEmAndamento
-                                                ?.jsonBody ??
-                                            '');
+                                                ''),
+                                          )?.toString(),
+                                          '0',
+                                        );
                                         _model.faturamento =
                                             valueOrDefault<double>(
-                                          (_model.retornoApiRelatorioFaturamento
-                                                  ?.jsonBody ??
-                                              ''),
+                                          RelatorioDeGestorCall.faturamento(
+                                            (_model.queryRetornoRelatorioIniciar
+                                                    ?.jsonBody ??
+                                                ''),
+                                          ),
                                           0.0,
                                         );
-                                        _model.countLigacoes = (_model
-                                                .queryCountLigacoes?.jsonBody ??
-                                            '');
+                                        _model.countLigacoes =
+                                            valueOrDefault<int>(
+                                          RelatorioDeGestorCall.totalLigacoes(
+                                            (_model.queryRetornoRelatorioIniciar
+                                                    ?.jsonBody ??
+                                                ''),
+                                          ),
+                                          0,
+                                        );
                                         safeSetState(() {});
                                         safeSetState(() {
                                           _model
                                               .dropDownAtendenteValueController
                                               ?.reset();
-                                          _model.dropDownPordutoValueController
+                                          _model.dropDownProdutoValueController
                                               ?.reset();
                                           _model.dropDownOrigemValueController
                                               ?.reset();
@@ -840,137 +845,68 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                   FFButtonWidget(
                                     onPressed: () async {
                                       _model.apiResultRelatorioFiltro =
-                                          await RelatorioLigacoesCall.call(
-                                        dataInicial: valueOrDefault<String>(
-                                          _model.dataInicial?.toString(),
-                                          '1990-01-01 00:00:00',
-                                        ),
-                                        dataFinal: valueOrDefault<String>(
-                                          _model.dataFinal?.toString(),
-                                          '2222-12-31 23:59:59',
-                                        ),
-                                        atendente:
+                                          await RelatorioDeGestorCall.call(
+                                        nomeUsuario:
                                             _model.dropDownAtendenteValue,
-                                        produto: _model.dropDownPordutoValue,
-                                        origem: _model.dropDownOrigemValue,
-                                        status: _model.dropDownStatusValue,
-                                      );
-
-                                      _model.queryCountLigacoesEmAndamentoPesquisa =
-                                          await CountRelatorioLigacoesCall.call(
-                                        status: 'Entrar em contato',
-                                        dataInicial: valueOrDefault<String>(
+                                        dataInicio: valueOrDefault<String>(
                                           _model.dataInicial?.toString(),
-                                          '1990-01-01 00:00:00',
+                                          '1999-01-01 00:00:00',
                                         ),
-                                        dataFinal: valueOrDefault<String>(
+                                        dataFim: valueOrDefault<String>(
                                           _model.dataFinal?.toString(),
-                                          '2222-12-31 23:59:59',
+                                          '9999-01-01 00:00:00',
                                         ),
-                                        atendente:
-                                            _model.dropDownAtendenteValue,
-                                        produto: _model.dropDownPordutoValue,
                                         origem: _model.dropDownOrigemValue,
+                                        produtoCodigo:
+                                            _model.dropDownProdutoValue,
+                                        statusLead: _model.dropDownStatusValue,
+                                        pagina: _model.pagina,
                                       );
 
-                                      _model.apiResultRelatorioCountFiltro =
-                                          await CountRelatorioLigacoesCall.call(
-                                        dataInicial: valueOrDefault<String>(
-                                          _model.dataInicial?.toString(),
-                                          '1990-01-01 00:00:00',
-                                        ),
-                                        dataFinal: valueOrDefault<String>(
-                                          _model.dataFinal?.toString(),
-                                          '2222-12-31 23:59:59',
-                                        ),
-                                        atendente:
-                                            _model.dropDownAtendenteValue,
-                                        produto: _model.dropDownPordutoValue,
-                                        origem: _model.dropDownOrigemValue,
-                                        status: _model.dropDownStatusValue,
-                                      );
-
-                                      _model.apiResultRelatorioTempoLigacaoFiltro =
-                                          await RelatorioTempoLigacoesCall.call(
-                                        dataInicial: valueOrDefault<String>(
-                                          _model.dataInicial?.toString(),
-                                          '1990-01-01 00:00:00',
-                                        ),
-                                        dataFinal: valueOrDefault<String>(
-                                          _model.dataFinal?.toString(),
-                                          '2222-12-31 23:59:59',
-                                        ),
-                                        atendente:
-                                            _model.dropDownAtendenteValue,
-                                        produto: _model.dropDownPordutoValue,
-                                        origem: _model.dropDownOrigemValue,
-                                        status: _model.dropDownStatusValue,
-                                      );
-
-                                      _model.apiResultRelatorioMediaTempoLigacaoFiltro =
-                                          await RelatorioMediaTempoLigacaoCall
-                                              .call(
-                                        dataInicial: valueOrDefault<String>(
-                                          _model.dataInicial?.toString(),
-                                          '1990-01-01 00:00:00',
-                                        ),
-                                        dataFinal: valueOrDefault<String>(
-                                          _model.dataFinal?.toString(),
-                                          '2222-12-31 23:59:59',
-                                        ),
-                                        atendente:
-                                            _model.dropDownAtendenteValue,
-                                        produto: _model.dropDownPordutoValue,
-                                        origem: _model.dropDownOrigemValue,
-                                        status: _model.dropDownStatusValue,
-                                      );
-
-                                      _model.pesquisaApiFaturamento =
-                                          await RelatorioFaturamentoCall.call(
-                                        dataInicial: valueOrDefault<String>(
-                                          _model.dataInicial?.toString(),
-                                          '1990-01-01 00:00:00',
-                                        ),
-                                        dataFinal: valueOrDefault<String>(
-                                          _model.dataFinal?.toString(),
-                                          '2222-12-31 23:59:59',
-                                        ),
-                                        produto: _model.dropDownPordutoValue,
-                                        usuario: _model.dropDownAtendenteValue,
-                                      );
-
-                                      _model.listaRelatorio = (_model
-                                                  .apiResultRelatorioFiltro
+                                      _model.listaRelatorio =
+                                          RelatorioDeGestorCall.ligacoes(
+                                        (_model.apiResultRelatorioFiltro
+                                                ?.jsonBody ??
+                                            ''),
+                                      )!
+                                              .toList()
+                                              .cast<dynamic>();
+                                      _model.countLigacoes =
+                                          valueOrDefault<int>(
+                                        RelatorioDeGestorCall.totalLigacoes(
+                                          (_model.apiResultRelatorioFiltro
                                                   ?.jsonBody ??
-                                              '')
-                                          .toList()
-                                          .cast<dynamic>();
-                                      _model.countLigacoes = getJsonField(
-                                        (_model.apiResultRelatorioCountFiltro
-                                                ?.jsonBody ??
-                                            ''),
-                                        r'''$''',
+                                              ''),
+                                        ),
+                                        0,
                                       );
-                                      _model.tempoLigacao = getJsonField(
-                                        (_model.apiResultRelatorioTempoLigacaoFiltro
-                                                ?.jsonBody ??
-                                            ''),
-                                        r'''$''',
-                                      ).toString();
-                                      _model.tempoMedioLigacao = getJsonField(
-                                        (_model.apiResultRelatorioMediaTempoLigacaoFiltro
-                                                ?.jsonBody ??
-                                            ''),
-                                        r'''$''',
-                                      ).toString();
-                                      _model.faturamento = (_model
-                                              .pesquisaApiFaturamento
-                                              ?.jsonBody ??
-                                          '');
-                                      _model.ligacoesEmAndamento = (_model
-                                              .queryCountLigacoesEmAndamentoPesquisa
-                                              ?.jsonBody ??
-                                          '');
+                                      _model.tempoLigacao =
+                                          valueOrDefault<String>(
+                                        RelatorioDeGestorCall.tempoTotal(
+                                          (_model.apiResultRelatorioFiltro
+                                                  ?.jsonBody ??
+                                              ''),
+                                        )?.toString(),
+                                        '0',
+                                      );
+                                      _model.tempoMedioLigacao =
+                                          valueOrDefault<String>(
+                                        RelatorioDeGestorCall.tempoMedio(
+                                          (_model.apiResultRelatorioFiltro
+                                                  ?.jsonBody ??
+                                              ''),
+                                        )?.toString(),
+                                        '0',
+                                      );
+                                      _model.faturamento =
+                                          valueOrDefault<double>(
+                                        RelatorioDeGestorCall.faturamento(
+                                          (_model.apiResultRelatorioFiltro
+                                                  ?.jsonBody ??
+                                              ''),
+                                        ),
+                                        0.0,
+                                      );
                                       safeSetState(() {});
 
                                       safeSetState(() {});
@@ -1061,7 +997,8 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                             ),
                                             Text(
                                               valueOrDefault<String>(
-                                                _model.tempoLigacao,
+                                                functions.formatSeconds(
+                                                    _model.tempoLigacao!),
                                                 '00:00:00',
                                               ),
                                               style:
@@ -1088,39 +1025,10 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                       ),
                                             ),
                                             Text(
-                                              valueOrDefault<String>(
+                                              '${functions.formatSeconds(valueOrDefault<String>(
                                                 _model.tempoMedioLigacao,
                                                 '00:00:00',
-                                              ),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'Ligações entrar em contato',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                            ),
-                                            Text(
-                                              valueOrDefault<String>(
-                                                _model.ligacoesEmAndamento
-                                                    ?.toString(),
-                                                '0',
-                                              ),
+                                              ))}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -1273,7 +1181,7 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                     Expanded(
                                                       flex: 2,
                                                       child: Text(
-                                                        'Tempo da ligação',
+                                                        'Tempo da ligação\n(segundos)',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1409,7 +1317,7 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                                           functions
                                                                               .converterStringParaData(getJsonField(
                                                                         relatorioItem,
-                                                                        r'''$.data_lead''',
+                                                                        r'''$.data_ligacao''',
                                                                       ).toString())),
                                                                       '00/00/0000 00:00:00',
                                                                     ),
@@ -1441,7 +1349,7 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                                 child: Text(
                                                                   getJsonField(
                                                                     relatorioItem,
-                                                                    r'''$.lead_nome''',
+                                                                    r'''$.nome_lead''',
                                                                   ).toString(),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -1462,7 +1370,7 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                               child: Text(
                                                                 getJsonField(
                                                                   relatorioItem,
-                                                                  r'''$.atendente''',
+                                                                  r'''$.nome_atendente''',
                                                                 ).toString(),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
@@ -1504,7 +1412,7 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                                 child: Text(
                                                                   getJsonField(
                                                                     relatorioItem,
-                                                                    r'''$.duracao_ligacao''',
+                                                                    r'''$.tempo_ligacao''',
                                                                   ).toString(),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
@@ -1605,20 +1513,74 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                                                         .transparent,
                                                                 onTap:
                                                                     () async {
-                                                                  if (getJsonField(
-                                                                        relatorioItem,
-                                                                        r'''$.url_gravacao''',
-                                                                      ) !=
-                                                                      null) {
-                                                                    await launchURL(
+                                                                  ScaffoldMessenger.of(
+                                                                          context)
+                                                                      .showSnackBar(
+                                                                    SnackBar(
+                                                                      content:
+                                                                          Text(
+                                                                        'Aguarde alguns instantes',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).accent4,
+                                                                        ),
+                                                                      ),
+                                                                      duration: Duration(
+                                                                          milliseconds:
+                                                                              4000),
+                                                                      backgroundColor:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .secondary,
+                                                                    ),
+                                                                  );
+                                                                  _model.apiResult218 =
+                                                                      await GravacoesCall
+                                                                          .call(
+                                                                    userId:
+                                                                        currentUserUid,
+                                                                    ligacaoId:
                                                                         getJsonField(
                                                                       relatorioItem,
-                                                                      r'''$.url_gravacao''',
-                                                                    ).toString());
-                                                                    return;
+                                                                      r'''$.id''',
+                                                                    ).toString(),
+                                                                  );
+
+                                                                  if ((_model
+                                                                          .apiResult218
+                                                                          ?.succeeded ??
+                                                                      true)) {
+                                                                    await launchURL(
+                                                                        GravacoesCall
+                                                                            .url(
+                                                                      (_model.apiResult218
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    )!);
                                                                   } else {
-                                                                    return;
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        content:
+                                                                            Text(
+                                                                          'Não foi possivel salvar a gravação',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                          ),
+                                                                        ),
+                                                                        duration:
+                                                                            Duration(milliseconds: 4000),
+                                                                        backgroundColor:
+                                                                            FlutterFlowTheme.of(context).error,
+                                                                      ),
+                                                                    );
                                                                   }
+
+                                                                  safeSetState(
+                                                                      () {});
                                                                 },
                                                                 child: Icon(
                                                                   Icons
@@ -1648,6 +1610,196 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                     ],
                                   ),
                                 ],
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0.0, 1.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    if (_model.pagina > 1)
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          _model.pagina = _model.pagina + -1;
+                                          safeSetState(() {});
+                                          _model.apiResultRelatorioFiltroCopy =
+                                              await RelatorioDeGestorCall.call(
+                                            nomeUsuario:
+                                                _model.dropDownAtendenteValue,
+                                            dataInicio: valueOrDefault<String>(
+                                              _model.dataInicial?.toString(),
+                                              '1999-01-01 00:00:00',
+                                            ),
+                                            dataFim: valueOrDefault<String>(
+                                              functions
+                                                  .dataFinal(_model.dataFinal)
+                                                  ?.toString(),
+                                              '9999-01-01 00:00:00',
+                                            ),
+                                            origem: _model.dropDownOrigemValue,
+                                            produtoCodigo:
+                                                _model.dropDownProdutoValue,
+                                            statusLead:
+                                                _model.dropDownStatusValue,
+                                            pagina: _model.pagina,
+                                          );
+
+                                          _model.countLigacoes =
+                                              valueOrDefault<int>(
+                                            RelatorioDeGestorCall.totalLigacoes(
+                                              (_model.apiResultRelatorioFiltroCopy
+                                                      ?.jsonBody ??
+                                                  ''),
+                                            ),
+                                            0,
+                                          );
+                                          _model.listaRelatorio =
+                                              RelatorioDeGestorCall.ligacoes(
+                                            (_model.apiResultRelatorioFiltroCopy
+                                                    ?.jsonBody ??
+                                                ''),
+                                          )!
+                                                  .toList()
+                                                  .cast<dynamic>();
+                                          _model.tempoLigacao =
+                                              valueOrDefault<String>(
+                                            RelatorioDeGestorCall.tempoTotal(
+                                              (_model.apiResultRelatorioFiltroCopy
+                                                      ?.jsonBody ??
+                                                  ''),
+                                            )?.toString(),
+                                            '0',
+                                          );
+                                          _model.tempoMedioLigacao =
+                                              valueOrDefault<String>(
+                                            RelatorioDeGestorCall.tempoMedio(
+                                              (_model.apiResultRelatorioFiltroCopy
+                                                      ?.jsonBody ??
+                                                  ''),
+                                            )?.toString(),
+                                            '0',
+                                          );
+                                          _model.faturamento =
+                                              valueOrDefault<double>(
+                                            RelatorioDeGestorCall.faturamento(
+                                              (_model.apiResultRelatorioFiltroCopy
+                                                      ?.jsonBody ??
+                                                  ''),
+                                            ),
+                                            0.0,
+                                          );
+                                          safeSetState(() {});
+
+                                          safeSetState(() {});
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_back,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                    if (_model.pagina <
+                                        valueOrDefault<int>(
+                                          ((valueOrDefault<int>(
+                                                    _model.countLigacoes,
+                                                    0,
+                                                  ) /
+                                                  10)
+                                              .ceil()),
+                                          0,
+                                        ))
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          _model.pagina = _model.pagina + 1;
+                                          safeSetState(() {});
+                                          _model.apiResultRelatorioFiltroCopyCopy =
+                                              await RelatorioDeGestorCall.call(
+                                            nomeUsuario:
+                                                _model.dropDownAtendenteValue,
+                                            dataInicio: valueOrDefault<String>(
+                                              _model.dataInicial?.toString(),
+                                              '1999-01-01 00:00:00',
+                                            ),
+                                            dataFim: valueOrDefault<String>(
+                                              functions
+                                                  .dataFinal(_model.dataFinal)
+                                                  ?.toString(),
+                                              '9999-01-01 00:00:00',
+                                            ),
+                                            origem: _model.dropDownOrigemValue,
+                                            produtoCodigo:
+                                                _model.dropDownProdutoValue,
+                                            statusLead:
+                                                _model.dropDownStatusValue,
+                                            pagina: _model.pagina,
+                                          );
+
+                                          _model.countLigacoes =
+                                              RelatorioDeGestorCall
+                                                  .totalLigacoes(
+                                            (_model.apiResultRelatorioFiltroCopyCopy
+                                                    ?.jsonBody ??
+                                                ''),
+                                          );
+                                          _model.listaRelatorio =
+                                              RelatorioDeGestorCall.ligacoes(
+                                            (_model.apiResultRelatorioFiltroCopyCopy
+                                                    ?.jsonBody ??
+                                                ''),
+                                          )!
+                                                  .toList()
+                                                  .cast<dynamic>();
+                                          _model.tempoLigacao =
+                                              valueOrDefault<String>(
+                                            RelatorioDeGestorCall.tempoTotal(
+                                              (_model.apiResultRelatorioFiltroCopyCopy
+                                                      ?.jsonBody ??
+                                                  ''),
+                                            )?.toString(),
+                                            '0',
+                                          );
+                                          _model.tempoMedioLigacao =
+                                              valueOrDefault<String>(
+                                            RelatorioDeGestorCall.tempoMedio(
+                                              (_model.apiResultRelatorioFiltroCopyCopy
+                                                      ?.jsonBody ??
+                                                  ''),
+                                            )?.toString(),
+                                            '0',
+                                          );
+                                          _model.faturamento =
+                                              valueOrDefault<double>(
+                                            RelatorioDeGestorCall.faturamento(
+                                              (_model.apiResultRelatorioFiltroCopyCopy
+                                                      ?.jsonBody ??
+                                                  ''),
+                                            ),
+                                            0.0,
+                                          );
+                                          safeSetState(() {});
+
+                                          safeSetState(() {});
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_forward,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                  ],
+                                ),
                               ),
                             ].divide(SizedBox(height: 20.0)),
                           ),

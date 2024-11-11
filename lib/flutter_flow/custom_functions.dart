@@ -275,3 +275,30 @@ List<dynamic>? newCustomFunction(List<dynamic>? apiCall) {
     return null;
   }
 }
+
+DateTime? dataFinal(DateTime? date) {
+  // given a date, i want to return it with the last second of the day
+  if (date != null) {
+    return DateTime(date.year, date.month, date.day, 23, 59, 59);
+  }
+  return null;
+}
+
+String? formatSeconds(String secondsGiven) {
+  double seconds = double.tryParse(secondsGiven) ?? 0;
+
+  // given the number of seconds return it as hours, minutes and seconds (00:00:00)
+  if (seconds == null) {
+    return null;
+  }
+
+  int hours = (seconds / 3600).floor();
+  int minutes = ((seconds % 3600) / 60).floor();
+  int remainingSeconds = (seconds % 60).floor();
+
+  String hoursStr = hours.toString().padLeft(2, '0');
+  String minutesStr = minutes.toString().padLeft(2, '0');
+  String secondsStr = remainingSeconds.toString().padLeft(2, '0');
+
+  return '$hoursStr:$minutesStr:$secondsStr';
+}

@@ -1059,6 +1059,102 @@ class LeadsGestorCall {
       ));
 }
 
+class RelatorioDeGestorCall {
+  static Future<ApiCallResponse> call({
+    String? dataInicio = '',
+    String? dataFim = '',
+    String? origem = '',
+    String? nomeUsuario = '',
+    String? produtoCodigo = '',
+    String? statusLead = '',
+    int? pagina = 1,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "data_inicio": "${dataInicio}",
+  "data_fim": "${dataFim}",
+  "origem_lead": "${origem}",
+  "nome_usuario": "${nomeUsuario}",
+  "produto_codigo": "${produtoCodigo}",
+  "status_lead": "${statusLead}",
+  "pagina": ${pagina}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Relatorio de gestor',
+      apiUrl:
+          'https://n8n-n8n.7jlhvw.easypanel.host/webhook/f4437121-3ca2-468a-bd33-936ddfe7abfa',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List? ligacoes(dynamic response) => getJsonField(
+        response,
+        r'''$[:].ligacoes''',
+        true,
+      ) as List?;
+  static double? faturamento(dynamic response) =>
+      castToType<double>(getJsonField(
+        response,
+        r'''$[:].soma''',
+      ));
+  static int? totalLigacoes(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].totalLigacoes''',
+      ));
+  static double? tempoTotal(dynamic response) =>
+      castToType<double>(getJsonField(
+        response,
+        r'''$[:].tempoTotal''',
+      ));
+  static double? tempoMedio(dynamic response) =>
+      castToType<double>(getJsonField(
+        response,
+        r'''$[:].tempoMedio''',
+      ));
+}
+
+class ObterTopRankingCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'obter top ranking',
+      apiUrl:
+          'https://n8n-n8n.7jlhvw.easypanel.host/webhook/8a56bfde-04ca-4ef6-a21b-4c224e949603',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? nome(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].nome_usuario''',
+      ));
+  static dynamic vendas(dynamic response) => getJsonField(
+        response,
+        r'''$[:].total_vendas''',
+      );
+  static dynamic faturamento(dynamic response) => getJsonField(
+        response,
+        r'''$[:].total_faturamento''',
+      );
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
