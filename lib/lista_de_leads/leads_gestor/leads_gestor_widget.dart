@@ -1103,7 +1103,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                                     child: Builder(
                                                       builder: (context) {
                                                         final item = _model
-                                                            .listaLeadEmProgresso
+                                                            .listaLeadEntrarEmContato
                                                             .toList();
 
                                                         return ListView
