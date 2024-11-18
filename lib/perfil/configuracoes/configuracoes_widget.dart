@@ -327,7 +327,10 @@ class _ConfiguracoesWidgetState extends State<ConfiguracoesWidget> {
                                                 await ConfiguracoesTable()
                                                     .insert({
                                               'valor_meta_mensal':
-                                                  FFAppState().valorMeta,
+                                                  valueOrDefault<double>(
+                                                FFAppState().valorMeta,
+                                                0.0,
+                                              ),
                                               'mes_ano': _model
                                                   .txtMesAnoTextController.text,
                                             });
