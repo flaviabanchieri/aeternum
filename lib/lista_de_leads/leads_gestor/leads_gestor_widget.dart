@@ -322,7 +322,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                         0.0, 0.0, 8.0, 0.0),
                                     child: FutureBuilder<List<LeadOrigemRow>>(
                                       future: LeadOrigemTable().queryRows(
-                                        queryFn: (q) => q.inFilter(
+                                        queryFn: (q) => q.eq(
                                           'id',
                                           [2, 5, 9, 10],
                                         ),

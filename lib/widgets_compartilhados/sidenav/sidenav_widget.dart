@@ -598,7 +598,7 @@ class _SidenavWidgetState extends State<SidenavWidget> {
                                 'user',
                                 currentUserUid,
                               )
-                              .isFilter(
+                              .eq(
                                 'clock_out',
                                 null,
                               ),
@@ -871,7 +871,7 @@ class _SidenavWidgetState extends State<SidenavWidget> {
                           'user',
                           currentUserUid,
                         )
-                        .isFilter(
+                        .eq(
                           'clock_out',
                           null,
                         ),

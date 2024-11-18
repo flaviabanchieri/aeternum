@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'database.dart';
 
 abstract class SupabaseTable<T extends SupabaseDataRow> {
@@ -32,7 +34,7 @@ abstract class SupabaseTable<T extends SupabaseDataRow> {
       .select()
       .limit(1)
       .single()
-      .then(createRow);
+      .then(createRow as FutureOr<T> Function(dynamic value));
 
   Future<List<T>> update({
     required Map<String, dynamic> data,
