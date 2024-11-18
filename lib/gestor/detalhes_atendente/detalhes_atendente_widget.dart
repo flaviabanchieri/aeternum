@@ -44,7 +44,7 @@ class _DetalhesAtendenteWidgetState extends State<DetalhesAtendenteWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResultRelatorioFiltro = await RelatorioLigacoesCall.call(
+      _model.apiResultRelatorioFiltro = await DashboardGestorCall.call(
         atendente: valueOrDefault<String>(
           widget!.atendenteId,
           '0',
@@ -101,7 +101,7 @@ class _DetalhesAtendenteWidgetState extends State<DetalhesAtendenteWidget>
       _model.supabaseAtendente = await UsuarioTable().queryRows(
         queryFn: (q) => q.eq(
           'user',
-          widget!.atendenteId,
+          widget!.atendenteId!,
         ),
       );
       _model.pontoUsuario = await GetUsuarioPontoListaCall.call(
@@ -251,7 +251,7 @@ class _DetalhesAtendenteWidgetState extends State<DetalhesAtendenteWidget>
       future: UsuarioTable().querySingleRow(
         queryFn: (q) => q.eq(
           'user',
-          widget!.atendenteId,
+          widget!.atendenteId!,
         ),
       ),
       builder: (context, snapshot) {
@@ -841,7 +841,7 @@ class _DetalhesAtendenteWidgetState extends State<DetalhesAtendenteWidget>
                                                   unselectedLabelColor:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .primaryText,
+                                                          .secondaryText,
                                                   labelStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .titleMedium
@@ -1029,7 +1029,7 @@ class _DetalhesAtendenteWidgetState extends State<DetalhesAtendenteWidget>
                                                                     q.eq(
                                                                   'usuario',
                                                                   widget!
-                                                                      .atendenteId,
+                                                                      .atendenteId!,
                                                                 ),
                                                               ),
                                                               builder: (context,
@@ -1344,7 +1344,7 @@ class _DetalhesAtendenteWidgetState extends State<DetalhesAtendenteWidget>
                                                                   q.eq(
                                                                 'user_id',
                                                                 widget!
-                                                                    .atendenteId,
+                                                                    .atendenteId!,
                                                               ),
                                                             ),
                                                             builder: (context,
@@ -2014,7 +2014,7 @@ class _DetalhesAtendenteWidgetState extends State<DetalhesAtendenteWidget>
                                                                           queryFn: (q) =>
                                                                               q.eq(
                                                                             'usuario',
-                                                                            widget!.atendenteId,
+                                                                            widget!.atendenteId!,
                                                                           ),
                                                                         ),
                                                                         builder:

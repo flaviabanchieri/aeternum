@@ -1,4 +1,3 @@
-import '/flutter_flow/flutter_flow_audio_player.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -60,29 +59,10 @@ class _RecordingsWidgetState extends State<RecordingsWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FlutterFlowAudioPlayer(
-              audio: Audio.network(
-                'https://filesamples.com/samples/audio/mp3/sample3.mp3',
-                metas: Metas(
-                  id: 'sample3.mp3-cda135f3',
-                  title: 'Audio',
-                ),
-              ),
-              titleTextStyle: FlutterFlowTheme.of(context).titleLarge.override(
-                    fontFamily: 'Outfit',
-                    letterSpacing: 0.0,
-                  ),
-              playbackDurationTextStyle:
-                  FlutterFlowTheme.of(context).labelMedium.override(
-                        fontFamily: 'Manrope',
-                        letterSpacing: 0.0,
-                      ),
-              fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-              playbackButtonColor: FlutterFlowTheme.of(context).primary,
-              activeTrackColor: FlutterFlowTheme.of(context).primary,
-              inactiveTrackColor: FlutterFlowTheme.of(context).alternate,
-              elevation: 0.0,
-              playInBackground: PlayInBackground.disabledPause,
+            Icon(
+              Icons.arrow_back,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 24.0,
             ),
           ],
         ),

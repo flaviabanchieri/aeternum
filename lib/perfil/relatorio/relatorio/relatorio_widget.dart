@@ -757,6 +757,68 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
                                         0.0, 0.0, 12.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
+                                        _model.urlcsv =
+                                            await DownloadCSVCall.call(
+                                          dataInicial: valueOrDefault<String>(
+                                            _model.dataInicial?.toString(),
+                                            '1999-01-01 00:00:00',
+                                          ),
+                                          dataFinal: valueOrDefault<String>(
+                                            _model.dataFinal?.toString(),
+                                            '9999-01-01 00:00:00',
+                                          ),
+                                          atendente:
+                                              _model.dropDownAtendenteValue,
+                                          origemLead:
+                                              _model.dropDownOrigemValue,
+                                          produtoCodigo:
+                                              _model.dropDownProdutoValue,
+                                          statusLead:
+                                              _model.dropDownStatusValue,
+                                        );
+
+                                        if ((_model.urlcsv?.succeeded ??
+                                            true)) {
+                                          await launchURL(getJsonField(
+                                            (_model.urlcsv?.jsonBody ?? ''),
+                                            r'''$.webContentLink''',
+                                          ).toString());
+                                        }
+
+                                        safeSetState(() {});
+                                      },
+                                      text: 'Baixar csv',
+                                      options: FFButtonOptions(
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        elevation: 3.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 12.0, 0.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
                                         _model.listaRelatorio =
                                             RelatorioDeGestorCall.ligacoes(
                                           (_model.queryRetornoRelatorioIniciar

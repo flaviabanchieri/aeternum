@@ -63,7 +63,7 @@ class _EditarProdutoWidgetState extends State<EditarProdutoWidget> {
       future: ProdutoTable().querySingleRow(
         queryFn: (q) => q.eq(
           'id',
-          widget!.id,
+          widget!.id!,
         ),
       ),
       builder: (context, snapshot) {
@@ -851,7 +851,7 @@ class _EditarProdutoWidgetState extends State<EditarProdutoWidget> {
                                                 },
                                                 matchingRows: (rows) => rows.eq(
                                                   'id',
-                                                  widget!.id,
+                                                  widget!.id!,
                                                 ),
                                               );
                                               ScaffoldMessenger.of(context)

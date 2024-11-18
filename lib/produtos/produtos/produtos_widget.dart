@@ -52,7 +52,7 @@ class _ProdutosWidgetState extends State<ProdutosWidget> {
           future: ViewProdutoTable().querySingleRow(
             queryFn: (q) => q.eq(
               'id_produto',
-              _model.id,
+              _model.id!,
             ),
           ),
           builder: (context, snapshot) {

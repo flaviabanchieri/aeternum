@@ -226,6 +226,10 @@ dynamic deserializeParam<T>(
             return ConfiguracoesEmpresaRow(data);
           case PermissaoRow:
             return PermissaoRow(data);
+          case ViewLeadGroupedRow:
+            return ViewLeadGroupedRow(data);
+          case ViewTopRankingRow:
+            return ViewTopRankingRow(data);
           case ViewLeadComprovantesRow:
             return ViewLeadComprovantesRow(data);
           case LeadStatusRow:
@@ -254,12 +258,16 @@ dynamic deserializeParam<T>(
             return ViewProdutoRow(data);
           case ViewRankingRow:
             return ViewRankingRow(data);
+          case DDDNumbersRow:
+            return DDDNumbersRow(data);
           case RandomUserIdRow:
             return RandomUserIdRow(data);
           case ConfiguracoesRow:
             return ConfiguracoesRow(data);
           case HistoricoRow:
             return HistoricoRow(data);
+          case ViewLeadProdutoRow:
+            return ViewLeadProdutoRow(data);
           case UsuarioRow:
             return UsuarioRow(data);
           case UsuarioPontoRow:

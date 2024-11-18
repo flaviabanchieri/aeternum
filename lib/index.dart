@@ -27,3 +27,4 @@ export '/cadastro_atendente/cadastro_atendente_widget.dart'
     show CadastroAtendenteWidget;
 export '/produtos/editar_produto/editar_produto_widget.dart'
     show EditarProdutoWidget;
+export '/perfil/telefones/telefones_widget.dart' show TelefonesWidget;

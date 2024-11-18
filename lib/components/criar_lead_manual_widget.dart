@@ -1352,6 +1352,7 @@ class _CriarLeadManualWidgetState extends State<CriarLeadManualWidget>
                                     _model.numeroCEPTextController?.clear();
                                     _model.documentoTextController?.clear();
                                     _model.telefoneTextController?.clear();
+                                    _model.telefoneMask.clear();
                                     _model.emailTextController?.clear();
                                     _model.nomeTextController?.clear();
                                   });

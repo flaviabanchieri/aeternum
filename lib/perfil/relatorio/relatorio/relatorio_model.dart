@@ -72,6 +72,8 @@ class RelatorioModel extends FlutterFlowModel<RelatorioWidget> {
   // State field(s) for DropDownStatus widget.
   String? dropDownStatusValue;
   FormFieldController<String>? dropDownStatusValueController;
+  // Stores action output result for [Backend Call - API (Download CSV)] action in Button widget.
+  ApiCallResponse? urlcsv;
   // Stores action output result for [Backend Call - API (Relatorio de gestor)] action in Button widget.
   ApiCallResponse? apiResultRelatorioFiltro;
   // Stores action output result for [Backend Call - API (gravacoes)] action in Icon widget.

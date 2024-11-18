@@ -376,7 +376,7 @@ class _LigacaoWidgetState extends State<LigacaoWidget> {
                           },
                           matchingRows: (rows) => rows.eq(
                             'id',
-                            widget!.idLigacao,
+                            widget!.idLigacao!,
                           ),
                         );
                         if (_model.datePicked == null) {

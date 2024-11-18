@@ -623,9 +623,9 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
 
                                                                         return FlutterFlowDropDown<
                                                                             int>(
-                                                                          controller: _model.dropDownValueController1 ??=
+                                                                          controller: _model.dropDownValueController ??=
                                                                               FormFieldController<int>(
-                                                                            _model.dropDownValue1 ??=
+                                                                            _model.dropDownValue ??=
                                                                                 infoLeadViewLeadRow?.status,
                                                                           ),
                                                                           options: List<int>.from(dropDownLeadStatusRowList
@@ -643,10 +643,10 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                           onChanged:
                                                                               (val) async {
                                                                             safeSetState(() =>
-                                                                                _model.dropDownValue1 = val);
+                                                                                _model.dropDownValue = val);
                                                                             await LeadTable().update(
                                                                               data: {
-                                                                                'status': _model.dropDownValue1,
+                                                                                'status': _model.dropDownValue,
                                                                               },
                                                                               matchingRows: (rows) => rows.eq(
                                                                                 'id',
@@ -842,8 +842,8 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                           (q) =>
                                                                               q.eq(
                                                                         'lead',
-                                                                        infoLeadViewLeadRow
-                                                                            ?.idLead,
+                                                                        infoLeadViewLeadRow!
+                                                                            .idLead!,
                                                                       ),
                                                                     ),
                                                                     builder:
@@ -1566,21 +1566,32 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                             );
                                                                           }
                                                                           List<ProdutoRow>
-                                                                              dropDownProdutoRowList =
+                                                                              dropDownProdutoProdutoRowList =
                                                                               snapshot.data!;
 
                                                                           return FlutterFlowDropDown<
                                                                               String>(
-                                                                            controller: _model.dropDownValueController2 ??=
+                                                                            controller: _model.dropDownProdutoValueController ??=
                                                                                 FormFieldController<String>(
-                                                                              _model.dropDownValue2 ??= infoLeadViewLeadRow?.produtoCodigo,
+                                                                              _model.dropDownProdutoValue ??= infoLeadViewLeadRow?.produtoCodigo,
                                                                             ),
                                                                             options:
-                                                                                List<String>.from(dropDownProdutoRowList.map((e) => e.codigo).withoutNulls.toList()),
+                                                                                List<String>.from(dropDownProdutoProdutoRowList.map((e) => e.codigo).withoutNulls.toList()),
                                                                             optionLabels:
-                                                                                dropDownProdutoRowList.map((e) => e.nome).toList(),
-                                                                            onChanged: (val) =>
-                                                                                safeSetState(() => _model.dropDownValue2 = val),
+                                                                                dropDownProdutoProdutoRowList.map((e) => e.nome).toList(),
+                                                                            onChanged:
+                                                                                (val) async {
+                                                                              safeSetState(() => _model.dropDownProdutoValue = val);
+                                                                              await LeadTable().update(
+                                                                                data: {
+                                                                                  'produto_codigo': _model.dropDownProdutoValue,
+                                                                                },
+                                                                                matchingRows: (rows) => rows.eq(
+                                                                                  'id',
+                                                                                  widget!.id,
+                                                                                ),
+                                                                              );
+                                                                            },
                                                                             width:
                                                                                 300.0,
                                                                             height:
@@ -1644,7 +1655,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                               q.eq(
                                                                         'codigo',
                                                                         _model
-                                                                            .dropDownValue2,
+                                                                            .dropDownProdutoValue!,
                                                                       ),
                                                                     );
                                                                     _model.urlCheckout = _model
@@ -2095,7 +2106,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                                                 await LeadComprovantesTable().delete(
                                                                                                   matchingRows: (rows) => rows.eq(
                                                                                                     'id',
-                                                                                                    listViewAnexosViewLeadComprovantesRow.id,
+                                                                                                    listViewAnexosViewLeadComprovantesRow.id!,
                                                                                                   ),
                                                                                                 );
                                                                                                 safeSetState(() => _model.requestCompleter = null);
@@ -2171,6 +2182,10 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                   .update(
                                                                 data: {
                                                                   'status': 4,
+                                                                  'data_concluido':
+                                                                      supaSerialize<
+                                                                              DateTime>(
+                                                                          getCurrentTimestamp),
                                                                 },
                                                                 matchingRows:
                                                                     (rows) =>
@@ -2342,7 +2357,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                         rows.eq(
                                                                   'usuario',
                                                                   _model
-                                                                      .dropDownUserValue,
+                                                                      .dropDownUserValue!,
                                                                 ),
                                                               );
                                                               await LeadTable()
@@ -2351,6 +2366,10 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                   'status': 4,
                                                                   'aprovacao_gestor':
                                                                       true,
+                                                                  'data_concluido':
+                                                                      supaSerialize<
+                                                                              DateTime>(
+                                                                          getCurrentTimestamp),
                                                                 },
                                                                 matchingRows:
                                                                     (rows) =>
@@ -2479,7 +2498,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                   q.eq(
                                                                 'id',
                                                                 _model
-                                                                    .idLigacao,
+                                                                    .idLigacao!,
                                                               ),
                                                             ),
                                                             builder: (context,
@@ -2937,7 +2956,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                                 rows.eq(
                                                                           'id',
                                                                           _model
-                                                                              .idLigacao,
+                                                                              .idLigacao!,
                                                                         ),
                                                                       );
                                                                       if (_model
@@ -3165,6 +3184,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                               await LeadTable().update(
                                                                                 data: {
                                                                                   'status': 4,
+                                                                                  'data_concluido': supaSerialize<DateTime>(getCurrentTimestamp),
                                                                                 },
                                                                                 matchingRows: (rows) => rows.eq(
                                                                                   'id',
@@ -3303,7 +3323,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                             .primaryText,
                                                                     unselectedLabelColor:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                            .secondaryText,
                                                                     labelStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .titleMedium
@@ -3810,7 +3830,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                           queryFn: (q) =>
                                                                               q.eq(
                                                                             'codigo',
-                                                                            infoLeadViewLeadRow?.produtoCodigo,
+                                                                            infoLeadViewLeadRow!.produtoCodigo!,
                                                                           ),
                                                                         ),
                                                                         builder:
@@ -3902,7 +3922,7 @@ class _InfoLeadWidgetState extends State<InfoLeadWidget>
                                                                             .primaryText,
                                                                     unselectedLabelColor:
                                                                         FlutterFlowTheme.of(context)
-                                                                            .primaryText,
+                                                                            .secondaryText,
                                                                     labelStyle: FlutterFlowTheme.of(
                                                                             context)
                                                                         .titleMedium

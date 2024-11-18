@@ -45,7 +45,7 @@ class DetalhesAtendenteModel extends FlutterFlowModel<DetalhesAtendenteWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (Relatorio Ligacoes)] action in detalhesAtendente widget.
+  // Stores action output result for [Backend Call - API (dashboardGestor)] action in detalhesAtendente widget.
   ApiCallResponse? apiResultRelatorioFiltro;
   // Stores action output result for [Backend Call - API (Quantidade de vendas por atendente)] action in detalhesAtendente widget.
   ApiCallResponse? vendas;

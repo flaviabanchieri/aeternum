@@ -287,7 +287,7 @@ class _EditarPerfilWidgetState extends State<EditarPerfilWidget> {
                                             },
                                             matchingRows: (rows) => rows.eq(
                                               'id',
-                                              editarPerfilUsuarioRow?.id,
+                                              editarPerfilUsuarioRow!.id,
                                             ),
                                           );
                                           FFAppState().FotoUsuario =
@@ -768,7 +768,7 @@ class _EditarPerfilWidgetState extends State<EditarPerfilWidget> {
                                           },
                                           matchingRows: (rows) => rows.eq(
                                             'id',
-                                            editarPerfilUsuarioRow?.id,
+                                            editarPerfilUsuarioRow!.id,
                                           ),
                                         );
                                         FFAppState().UsuarioNome = _model

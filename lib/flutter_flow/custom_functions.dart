@@ -302,3 +302,15 @@ String? formatSeconds(String secondsGiven) {
 
   return '$hoursStr:$minutesStr:$secondsStr';
 }
+
+double? stringToDouble(String? valor) {
+  // convert string para double
+  try {
+    if (valor != null) {
+      return double.parse(valor);
+    }
+  } catch (e) {
+    print('Error parsing string to double: $e');
+  }
+  return null;
+}

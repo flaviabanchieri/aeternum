@@ -263,30 +263,31 @@ class QuantidadeDeLeadsAtendenteCall {
   }
 }
 
-class QuantidadeDeLeadsConcluidosPorAtendenteCall {
+class DownloadCSVCall {
   static Future<ApiCallResponse> call({
-    String? dataInicial = '2024-08-01 00:00:00',
-    String? dataFinal = '2024-08-31 00:00:00',
-    String? atendente = 'cb31a893-f6a5-418c-80e8-cf4cdcbf6d9e',
+    String? dataInicial = '1999-01-01 00:00:00',
+    String? dataFinal = '9999-01-01 00:00:00',
+    String? atendente = '',
+    String? origemLead = '',
+    String? produtoCodigo = '',
+    String? statusLead = '',
+    int? pagina,
   }) async {
-    final ffApiRequestBody = '''
-{
-  "atendente": "${atendente}",
-  "datafinal": "${dataFinal}",
-  "datainicial": "${dataInicial}"
-}''';
     return ApiManager.instance.makeApiCall(
-      callName: 'Quantidade de Leads concluidos por Atendente',
+      callName: 'Download CSV',
       apiUrl:
-          'https://glkamikbytidbcuakgcc.supabase.co/rest/v1/rpc/contar_leads_concluidos_atendentes',
-      callType: ApiCallType.POST,
-      headers: {
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsa2FtaWtieXRpZGJjdWFrZ2NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjI2MDk3ODcsImV4cCI6MjAzODE4NTc4N30.HKoJgyjRufokGbSNnSEWEoZdXADzfbyC2gdAyIQ-RyU',
+          'https://n8n-n8n.7jlhvw.easypanel.host/webhook/ed0731d6-6030-4853-a306-3bfe7a738d55',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'data_inicio': dataInicial,
+        'data_fim': dataFinal,
+        'origem_lead': origemLead,
+        'nome_usuario': atendente,
+        'produto_codigo': produtoCodigo,
+        'status_lead': statusLead,
+        'pagina': pagina,
       },
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -456,7 +457,7 @@ class FiltraLeadsCall {
       ));
 }
 
-class RelatorioLigacoesCall {
+class DashboardGestorCall {
   static Future<ApiCallResponse> call({
     String? dataInicial = '',
     String? dataFinal = '',
@@ -475,7 +476,7 @@ class RelatorioLigacoesCall {
   "p_status": "${status}"
 }''';
     return ApiManager.instance.makeApiCall(
-      callName: 'Relatorio Ligacoes',
+      callName: 'dashboardGestor',
       apiUrl:
           'https://glkamikbytidbcuakgcc.supabase.co/rest/v1/rpc/relatorio_ligacao',
       callType: ApiCallType.POST,
@@ -675,7 +676,7 @@ class ClickToCallCall {
     return ApiManager.instance.makeApiCall(
       callName: 'Click to Call',
       apiUrl:
-          'https://n8n-n8n.7jlhvw.easypanel.host/webhook/63948bc8-ce73-4e3b-a2e0-ef3fe97c9ca4',
+          'https://n8n-n8n.7jlhvw.easypanel.host/webhook/dbf1213c-e20d-4837-901a-d22d38cf1eb4',
       callType: ApiCallType.POST,
       headers: {},
       params: {},
@@ -1153,6 +1154,64 @@ class ObterTopRankingCall {
         response,
         r'''$[:].total_faturamento''',
       );
+}
+
+class DownloadGravacaoCall {
+  static Future<ApiCallResponse> call() async {
+    final ffApiRequestBody = '''
+{
+  "userId": "12fbac88-a69d-4c0e-9778-3f71d0e81886",
+  "recordingId": "",
+  "ligacaoId": "760"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'download gravacao',
+      apiUrl:
+          'https://n8n-n8n.7jlhvw.easypanel.host/webhook-test/e6e3104f-1113-4a67-9368-b537c46eaab1',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PhoneIdCall {
+  static Future<ApiCallResponse> call({
+    String? userEmail = '',
+    String? numero = '',
+    String? userId = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "numero": "${numero}",
+  "userId": "${userId}",
+  "userEmail": "${userEmail}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'phoneId',
+      apiUrl:
+          'https://n8n-n8n.7jlhvw.easypanel.host/webhook/56e3af2e-0017-49ab-aaef-c857a47158db',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 class ApiPagingParams {

@@ -99,7 +99,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         queryFn: (q) => q
             .eq(
               'referencia',
-              functions.mesAnoAtual(),
+              functions.mesAnoAtual()!,
             )
             .order('faturamento'),
       );
@@ -216,7 +216,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         queryFn: (q) => q
             .eq(
               'referencia',
-              functions.mesAnoAtual(),
+              functions.mesAnoAtual()!,
             )
             .eq(
               'usuario',
@@ -609,98 +609,163 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 12.0, 0.0, 12.0),
-                                                child: Container(
-                                                  height: 120.0,
-                                                  constraints: BoxConstraints(
-                                                    maxWidth: 270.0,
+                                                child: FutureBuilder<
+                                                    List<ViewLeadGroupedRow>>(
+                                                  future: ViewLeadGroupedTable()
+                                                      .querySingleRow(
+                                                    queryFn: (q) => q
+                                                        .eq(
+                                                          'usuario',
+                                                          currentUserUid,
+                                                        )
+                                                        .eq(
+                                                          'datreferencia',
+                                                          valueOrDefault<
+                                                              String>(
+                                                            '${dateTimeFormat(
+                                                              "MM",
+                                                              getCurrentTimestamp,
+                                                              locale: FFLocalizations
+                                                                      .of(context)
+                                                                  .languageCode,
+                                                            )}/${dateTimeFormat(
+                                                              "yyyy",
+                                                              getCurrentTimestamp,
+                                                              locale: FFLocalizations
+                                                                      .of(context)
+                                                                  .languageCode,
+                                                            )}',
+                                                            '11/2024',
+                                                          ),
+                                                        )
+                                                        .eq(
+                                                          'usuario',
+                                                          currentUserUid,
+                                                        ),
                                                   ),
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14.0),
-                                                    border: Border.all(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    List<ViewLeadGroupedRow>
+                                                        dashboardCard3ViewLeadGroupedRowList =
+                                                        snapshot.data!;
+
+                                                    final dashboardCard3ViewLeadGroupedRow =
+                                                        dashboardCard3ViewLeadGroupedRowList
+                                                                .isNotEmpty
+                                                            ? dashboardCard3ViewLeadGroupedRowList
+                                                                .first
+                                                            : null;
+
+                                                    return Container(
+                                                      height: 120.0,
+                                                      constraints:
+                                                          BoxConstraints(
+                                                        maxWidth: 270.0,
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(14.0),
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
                                                               .alternate,
-                                                      width: 1.0,
-                                                    ),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(16.0, 0.0,
-                                                                16.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Flexible(
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                'Concluidos',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Manrope',
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                              Row(
+                                                          width: 1.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    0.0,
+                                                                    16.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Flexible(
+                                                              child: Column(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
                                                                 children: [
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          4.0,
-                                                                          4.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          FFAppState()
-                                                                              .totalRealizados
-                                                                              .toString(),
-                                                                          '0',
+                                                                  Text(
+                                                                    'Concluidos',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Manrope',
+                                                                          letterSpacing:
+                                                                              0.0,
                                                                         ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .displaySmall
-                                                                            .override(
-                                                                              fontFamily: 'Outfit',
-                                                                              letterSpacing: 0.0,
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              4.0,
+                                                                              4.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Text(
+                                                                            valueOrDefault<String>(
+                                                                              dashboardCard3ViewLeadGroupedRow?.totalLead?.toString(),
+                                                                              '0',
                                                                             ),
+                                                                            style: FlutterFlowTheme.of(context).displaySmall.override(
+                                                                                  fontFamily: 'Outfit',
+                                                                                  letterSpacing: 0.0,
+                                                                                ),
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                    ),
+                                                                    ],
                                                                   ),
                                                                 ],
                                                               ),
-                                                            ],
-                                                          ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                      ),
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                               Padding(
@@ -773,21 +838,69 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                           4.0,
                                                                           4.0,
                                                                           0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          FFAppState()
-                                                                              .totalVendasAtendente
-                                                                              .toString(),
-                                                                          '0',
+                                                                      child: FutureBuilder<
+                                                                          List<
+                                                                              ViewLeadGroupedRow>>(
+                                                                        future:
+                                                                            ViewLeadGroupedTable().querySingleRow(
+                                                                          queryFn: (q) => q
+                                                                              .eq(
+                                                                                'usuario',
+                                                                                currentUserUid,
+                                                                              )
+                                                                              .eq(
+                                                                                'datreferencia',
+                                                                                valueOrDefault<String>(
+                                                                                  '${dateTimeFormat(
+                                                                                    "MM",
+                                                                                    getCurrentTimestamp,
+                                                                                    locale: FFLocalizations.of(context).languageCode,
+                                                                                  )}/${dateTimeFormat(
+                                                                                    "yyyy",
+                                                                                    getCurrentTimestamp,
+                                                                                    locale: FFLocalizations.of(context).languageCode,
+                                                                                  )}',
+                                                                                  '11/2024',
+                                                                                ),
+                                                                              ),
                                                                         ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .displaySmall
-                                                                            .override(
-                                                                              fontFamily: 'Outfit',
-                                                                              letterSpacing: 0.0,
+                                                                        builder:
+                                                                            (context,
+                                                                                snapshot) {
+                                                                          // Customize what your widget looks like when it's loading.
+                                                                          if (!snapshot
+                                                                              .hasData) {
+                                                                            return Center(
+                                                                              child: SizedBox(
+                                                                                width: 50.0,
+                                                                                height: 50.0,
+                                                                                child: CircularProgressIndicator(
+                                                                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                                                                    FlutterFlowTheme.of(context).primary,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                          List<ViewLeadGroupedRow>
+                                                                              textViewLeadGroupedRowList =
+                                                                              snapshot.data!;
+
+                                                                          final textViewLeadGroupedRow = textViewLeadGroupedRowList.isNotEmpty
+                                                                              ? textViewLeadGroupedRowList.first
+                                                                              : null;
+
+                                                                          return Text(
+                                                                            valueOrDefault<String>(
+                                                                              textViewLeadGroupedRow?.totalValorProduto?.toString(),
+                                                                              '0',
                                                                             ),
+                                                                            style: FlutterFlowTheme.of(context).displaySmall.override(
+                                                                                  fontFamily: 'Outfit',
+                                                                                  letterSpacing: 0.0,
+                                                                                ),
+                                                                          );
+                                                                        },
                                                                       ),
                                                                     ),
                                                                   ),
@@ -1832,16 +1945,29 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         10.0),
                                                                 child: FutureBuilder<
                                                                     List<
-                                                                        ViewRankingRow>>(
-                                                                  future: ViewRankingTable()
+                                                                        ViewLeadGroupedRow>>(
+                                                                  future: ViewLeadGroupedTable()
                                                                       .queryRows(
                                                                     queryFn:
                                                                         (q) => q
                                                                             .eq(
-                                                                              'referencia',
-                                                                              functions.mesAnoAtual(),
-                                                                            )
-                                                                            .order('faturamento'),
+                                                                      'datreferencia',
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        '${dateTimeFormat(
+                                                                          "MM",
+                                                                          getCurrentTimestamp,
+                                                                          locale:
+                                                                              FFLocalizations.of(context).languageCode,
+                                                                        )}/${dateTimeFormat(
+                                                                          "yyyy",
+                                                                          getCurrentTimestamp,
+                                                                          locale:
+                                                                              FFLocalizations.of(context).languageCode,
+                                                                        )}',
+                                                                        '11/2024',
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                   builder: (context,
                                                                       snapshot) {
@@ -1865,8 +1991,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         ),
                                                                       );
                                                                     }
-                                                                    List<ViewRankingRow>
-                                                                        listViewViewRankingRowList =
+                                                                    List<ViewLeadGroupedRow>
+                                                                        listViewViewLeadGroupedRowList =
                                                                         snapshot
                                                                             .data!;
 
@@ -1880,13 +2006,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       scrollDirection:
                                                                           Axis.vertical,
                                                                       itemCount:
-                                                                          listViewViewRankingRowList
+                                                                          listViewViewLeadGroupedRowList
                                                                               .length,
                                                                       itemBuilder:
                                                                           (context,
                                                                               listViewIndex) {
-                                                                        final listViewViewRankingRow =
-                                                                            listViewViewRankingRowList[listViewIndex];
+                                                                        final listViewViewLeadGroupedRow =
+                                                                            listViewViewLeadGroupedRowList[listViewIndex];
                                                                         return Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
@@ -1899,7 +2025,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                 100.0,
                                                                             decoration:
                                                                                 BoxDecoration(
-                                                                              color: listViewViewRankingRow.idUsuario == currentUserUid ? Color(0x4C2797FF) : FlutterFlowTheme.of(context).secondaryBackground,
+                                                                              color: listViewViewLeadGroupedRow.usuario == currentUserUid ? Color(0x4C2797FF) : FlutterFlowTheme.of(context).secondaryBackground,
                                                                               boxShadow: [
                                                                                 BoxShadow(
                                                                                   blurRadius: 0.0,
@@ -1959,7 +2085,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                 children: [
                                                                                                   Text(
                                                                                                     valueOrDefault<String>(
-                                                                                                      listViewViewRankingRow.nomeUsuario,
+                                                                                                      listViewViewLeadGroupedRow.nomeUsuario,
                                                                                                       'Nome Atendente',
                                                                                                     ),
                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -1989,7 +2115,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                             flex: 2,
                                                                                             child: Text(
                                                                                               valueOrDefault<String>(
-                                                                                                functions.mascaraValorReal(listViewViewRankingRow.faturamento),
+                                                                                                functions.mascaraValorReal(valueOrDefault<double>(
+                                                                                                  listViewViewLeadGroupedRow.totalValorProduto,
+                                                                                                  0.0,
+                                                                                                )),
                                                                                                 '0',
                                                                                               ),
                                                                                               style: FlutterFlowTheme.of(context).titleLarge.override(

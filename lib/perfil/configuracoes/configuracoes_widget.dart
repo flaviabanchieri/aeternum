@@ -328,6 +328,7 @@ class _ConfiguracoesWidgetState extends State<ConfiguracoesWidget> {
                                             safeSetState(() {
                                               _model.txtMesAnoTextController
                                                   ?.clear();
+                                              _model.txtMesAnoMask.clear();
                                             });
                                             safeSetState(() =>
                                                 _model.requestCompleter = null);

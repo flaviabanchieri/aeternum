@@ -80,4 +80,8 @@ class LeadRow extends SupabaseDataRow {
 
   DateTime? get createdAt => getField<DateTime>('created_at');
   set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
+
+  DateTime? get dataConcluido => getField<DateTime>('data_concluido');
+  set dataConcluido(DateTime? value) =>
+      setField<DateTime>('data_concluido', value);
 }

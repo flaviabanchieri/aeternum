@@ -52,13 +52,13 @@ class InfoLeadModel extends FlutterFlowModel<InfoLeadWidget> {
   String? dropDownUserValue;
   FormFieldController<String>? dropDownUserValueController;
   // State field(s) for DropDown widget.
-  int? dropDownValue1;
-  FormFieldController<int>? dropDownValueController1;
+  int? dropDownValue;
+  FormFieldController<int>? dropDownValueController;
   // Stores action output result for [Backend Call - API (Click to Call)] action in Button widget.
   ApiCallResponse? fazerligacao;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
+  // State field(s) for DropDownProduto widget.
+  String? dropDownProdutoValue;
+  FormFieldController<String>? dropDownProdutoValueController;
   // Stores action output result for [Backend Call - Query Rows] action in Button widget.
   List<ProdutoRow>? queryListaProdutosUrl;
   Completer<List<ViewLeadComprovantesRow>>? requestCompleter;
