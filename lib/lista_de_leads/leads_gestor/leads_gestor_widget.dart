@@ -1067,13 +1067,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 0.0, 0.0, 0.0),
                                               child: Text(
-                                                'Entrar em contato (${valueOrDefault<String>(
-                                                  _model
-                                                      .listaLeadEntrarEmContato
-                                                      .length
-                                                      .toString(),
-                                                  '0',
-                                                )})',
+                                                'Entrar em contato',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineSmall
@@ -1422,12 +1416,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 0.0, 0.0, 0.0),
                                               child: Text(
-                                                'Em progresso (${valueOrDefault<String>(
-                                                  _model.listaLeadEmProgresso
-                                                      .length
-                                                      .toString(),
-                                                  '0',
-                                                )})',
+                                                'Em progresso',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineSmall
@@ -1777,13 +1766,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 0.0, 0.0, 0.0),
                                               child: Text(
-                                                'Aguardando aprovação do gestor (${valueOrDefault<String>(
-                                                  _model
-                                                      .listaLeadAguardandoAprovacao
-                                                      .length
-                                                      .toString(),
-                                                  '0',
-                                                )})',
+                                                'Aguardando aprovação do gestor',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineSmall
@@ -2150,12 +2133,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 0.0, 0.0, 0.0),
                                               child: Text(
-                                                'Concluido (${valueOrDefault<String>(
-                                                  _model
-                                                      .listaLeadConcluido.length
-                                                      .toString(),
-                                                  '0',
-                                                )})',
+                                                'Concluido',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineSmall
@@ -2505,11 +2483,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 0.0, 0.0, 0.0),
                                               child: Text(
-                                                'Concluido - Aprovado (${valueOrDefault<String>(
-                                                  _model.listaLeadVendido.length
-                                                      .toString(),
-                                                  '0',
-                                                )})',
+                                                'Concluido - Aprovado',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineSmall
@@ -2838,12 +2812,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(8.0, 0.0, 0.0, 0.0),
                                               child: Text(
-                                                'Cancelado (${valueOrDefault<String>(
-                                                  _model
-                                                      .listaLeadCancelado.length
-                                                      .toString(),
-                                                  '0',
-                                                )})',
+                                                'Cancelado',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .headlineSmall
