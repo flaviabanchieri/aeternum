@@ -296,6 +296,11 @@ class DownloadCSVCall {
       alwaysAllowBody: false,
     );
   }
+
+  static String? link(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].webContentLink''',
+      ));
 }
 
 class QuantidadeDeVendasPorAtendenteCall {

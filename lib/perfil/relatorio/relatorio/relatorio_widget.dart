@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'relatorio_model.dart';
 export 'relatorio_model.dart';
 
@@ -779,10 +780,13 @@ class _RelatorioWidgetState extends State<RelatorioWidget> {
 
                                         if ((_model.urlcsv?.succeeded ??
                                             true)) {
-                                          await launchURL(getJsonField(
-                                            (_model.urlcsv?.jsonBody ?? ''),
-                                            r'''$.webContentLink''',
-                                          ).toString());
+                                          await launchURL(
+                                              valueOrDefault<String>(
+                                            DownloadCSVCall.link(
+                                              (_model.urlcsv?.jsonBody ?? ''),
+                                            ),
+                                            'www.google.com',
+                                          ));
                                         }
 
                                         safeSetState(() {});
