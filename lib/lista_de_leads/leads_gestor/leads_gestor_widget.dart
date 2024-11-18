@@ -15,6 +15,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
 import 'leads_gestor_model.dart';
 export 'leads_gestor_model.dart';
 
@@ -322,10 +323,7 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                         0.0, 0.0, 8.0, 0.0),
                                     child: FutureBuilder<List<LeadOrigemRow>>(
                                       future: LeadOrigemTable().queryRows(
-                                        queryFn: (q) => q.eq(
-                                          'id',
-                                          [2, 5, 9, 10],
-                                        ),
+                                        queryFn: (q) => q,
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
@@ -649,8 +647,8 @@ class _LeadsGestorWidgetState extends State<LeadsGestorWidget> {
                                           _model.dataFinal?.toString(),
                                           '2999-01-01',
                                         ),
-                                        status: '1',
                                         aprovado: false,
+                                        status: '1',
                                       );
 
                                       _model.andamentoApiCopy =
