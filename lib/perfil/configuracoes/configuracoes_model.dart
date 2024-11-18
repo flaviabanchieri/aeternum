@@ -39,6 +39,8 @@ class ConfiguracoesModel extends FlutterFlowModel<ConfiguracoesWidget> {
   TextEditingController? txtMesAnoTextController;
   final txtMesAnoMask = MaskTextInputFormatter(mask: '##/####');
   String? Function(BuildContext, String?)? txtMesAnoTextControllerValidator;
+  // Stores action output result for [Backend Call - Insert Row] action in Button widget.
+  ConfiguracoesRow? meta;
   Completer<List<ConfiguracoesRow>>? requestCompleter;
   // Stores action output result for [Backend Call - Query Rows] action in Icon widget.
   List<ConfiguracoesRow>? queryConfiguracoesDelete;

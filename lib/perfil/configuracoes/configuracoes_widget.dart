@@ -13,6 +13,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
+
 import 'configuracoes_model.dart';
 export 'configuracoes_model.dart';
 
@@ -268,6 +269,7 @@ class _ConfiguracoesWidgetState extends State<ConfiguracoesWidget> {
                                         12.0, 0.0, 0.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
+                                        var _shouldSetState = false;
                                         if (FFAppState().valorMeta == 0.0) {
                                           await showDialog(
                                             context: context,
@@ -288,6 +290,8 @@ class _ConfiguracoesWidgetState extends State<ConfiguracoesWidget> {
                                               );
                                             },
                                           );
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         } else {
                                           if (_model.txtMesAnoTextController
@@ -315,14 +319,19 @@ class _ConfiguracoesWidgetState extends State<ConfiguracoesWidget> {
                                                 );
                                               },
                                             );
+                                            if (_shouldSetState)
+                                              safeSetState(() {});
                                             return;
                                           } else {
-                                            await ConfiguracoesTable().insert({
+                                            _model.meta =
+                                                await ConfiguracoesTable()
+                                                    .insert({
                                               'valor_meta_mensal':
                                                   FFAppState().valorMeta,
                                               'mes_ano': _model
                                                   .txtMesAnoTextController.text,
                                             });
+                                            _shouldSetState = true;
                                             FFAppState().valorMeta = 0.0;
                                             safeSetState(() {});
                                             safeSetState(() {
@@ -352,9 +361,14 @@ class _ConfiguracoesWidgetState extends State<ConfiguracoesWidget> {
                                                         .success,
                                               ),
                                             );
+                                            if (_shouldSetState)
+                                              safeSetState(() {});
                                             return;
                                           }
                                         }
+
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                       },
                                       text: 'Salvar',
                                       options: FFButtonOptions(

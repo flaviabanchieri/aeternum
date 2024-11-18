@@ -74,9 +74,10 @@ class _ProdutosWidgetState extends State<ProdutosWidget> {
                 snapshot.data!;
 
             final endDrawerVerProdutoViewProdutoRow =
-                endDrawerVerProdutoViewProdutoRowList.isNotEmpty
-                    ? endDrawerVerProdutoViewProdutoRowList.first
-                    : null;
+            snapshot.data != null && endDrawerVerProdutoViewProdutoRowList.isNotEmpty
+            ? endDrawerVerProdutoViewProdutoRowList.first
+            : null;
+
 
             return Container(
               width: 650.0,
